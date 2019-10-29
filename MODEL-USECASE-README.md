@@ -3,7 +3,7 @@
 
 Section below contains details of Certifai Evaluation components that are common across each evaluation
 
-   > _[Glossary or commonly used terms in this document](#Glossary)_
+   > _[Glossary of commonly used terms in this document](#Glossary)_
 
 ###  <a id="Models">**Models**</a>
 
