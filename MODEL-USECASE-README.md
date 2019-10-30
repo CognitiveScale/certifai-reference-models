@@ -130,8 +130,8 @@ This use-case comes with 3 pre-trained models, based respectively on
 - This dataset was sourced from [Emcien](https://www.sixtusdakurah.com/resources/The_Application_of_Regularization_in_Modelling_Insurance_Claims.pdf)
 
 This use-case comes with 5 pre-trained models, based respectively on 
-  - L1 Liner Regression
-  - L2 Liner Regression
+  - L1 Linear Regression
+  - L2 Linear Regression
   - Neural Network
   - Random Forest Regressor
   - SVR
