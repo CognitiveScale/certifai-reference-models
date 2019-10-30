@@ -1,9 +1,9 @@
 
 <center> <h1>Cortex Certifai Sandbox Case-Studies </h1> </center>
 
-Section below contains details of Certifai Evaluation components that are common across each evaluation
+Section below contains details of Certifai Evaluation components that are common across each evaluation [use case / project]
 
-   > _[Glossary or commonly used terms in this document](#Glossary)_
+   > _[Glossary of common terms](#Glossary)_
 
 ###  <a id="Models">**Models**</a>
 
