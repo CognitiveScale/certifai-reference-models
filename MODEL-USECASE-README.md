@@ -147,11 +147,8 @@ This use-case comes with 5 pre-trained models, based respectively on
 
 | Terms  | Meaning |
 | ------ | ------ |
-|   Models |  Machine Learning models that are to be evaluated using Certifai|
-| Counterfactual | Alternative suggested datapoints that represent the amount of change required to move from one outcome to another  |
-| Robustness |  Measure of how well models retain an outcome given changes to the data feature values<br>The more robust a model is the greater the changes required to alter the outcome |
-| Fairness | Measure of difference required to change the outcome for different groups implicit in a feature given the same model and dataset
-| Explanations | Predictive analysis provided through the generation of counterfactuals for the change that must occur in a dataset with given restrictions to obtain a different outcome  |
-
-
-
+| Models |  Machine Learning models that are to be evaluated using Certifai|
+| Counterfactual | Alternative suggested feature values that would result in change of outcome |
+| Robustness |  Measure of how well models maintain an outcome given small changes to the data feature values. The more robust a model is, the greater the changes required to alter the outcome |
+| Fairness | Measure of amount of change required to alter the outcome for the different groups defined by the specified feature given the same model and dataset |
+| Explanations | Comparison of the dataset features, original and counterfactual values for the change that must occur in a dataset with given restrictions to obtain a different outcome  |
