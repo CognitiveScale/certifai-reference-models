@@ -1,172 +1,154 @@
-# Overview
 
-This directory contains a simple flask app to serve up pickled models. By default it runs on port 8551.
+<center> <h1>Cortex Certifai Sandbox Case-Studies </h1> </center>
 
-It also contains the metadata needed to build a docker container to serve the models using s2i.
+Section below contains details of Certifai Evaluation components that are common across each evaluation [use case / project]
 
-## Predict
+   > _[Glossary of common terms](#Glossary)_
 
-The predict endpoint takes an array of instances containing an array of feature values.
-```
-curl -X POST \
- http://localhost:8551/<model_name>/predict \
- -H 'Content-Type: application/json' \
- -d '{
-"payload": { "instances": [[7,107,74,0,0,29.6,0.254,31]] }
-}'
-```
-The `<model_name>` must be a pickled model in the models directory, for example `diabetes_svm`.
+###  <a id="Models">**Models**</a>
 
-It returns an array of predictions.
-```
-{
-   "payload": {
-     "predictions": [1]
-   }
-}
-```
+This tab includes:
+ - List of ML Models that are to evaluated using Cortex Certifai
 
-An example predict for the German Credit example is:
+### <a id="Datasets"> **Evaluation Dataset**</a> 
+   This tab includes:
+ - an `Evaluation Dataset` of **X** no. of instances, used to assess global properties such as model robustness and fairness
+ - **X** `Rows Explanations Dataset` containing **X** no. of <a id="Observations">instances</a> for which counterfactual (CF) explanations are desired
 
-```
-curl -X POST \
-  http://localhost:8551/german_credit_logit/predict \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "payload": {
-    "instances": [ ["... < 0 DM", 6, "critical account/ other credits existing (not at this bank)", "radio/television", 1169, "unknown/ no savings account", ".. >= 7 years", 4, "male : single", "others - none", 4, "real estate", "> 25 years", "none", "own", 2, "skilled employee / official", 1, "phone - yes, registered under the customers name", "foreign - yes"],
-    ["0 <= ... < 200 DM", 48, "existing credits paid back duly till now", "radio/television", 5951, "... < 100 DM", "1 <= ... < 4 years", 2, "female : divorced/separated/married", "others - none", 2, "real estate", "> 25 years", "none", "own", 1, "skilled employee / official", 1, "phone - none", "foreign - yes"],
-    ["no checking account", 12, "critical account/ other credits existing (not at this bank)", "education", 2096, "... < 100 DM", "4 <= ... < 7 years", 2, "male : single", "others - none", 3, "real estate", "> 25 years", "none", "own", 1, "unskilled - resident", 2, "phone - none", "foreign - yes"],
-    ["... < 0 DM", 42, "existing credits paid back duly till now", "furniture/equipment", 7882, "... < 100 DM", "4 <= ... < 7 years", 2, "male : single", "guarantor", 4, "building society savings agreement/ life insurance", "> 25 years", "none", "for free", 1, "skilled employee / official", 2, "phone - none", "foreign - yes"]]
-  }
-}'
-```
+### <a id="Evaluations">**Evaluations**</a>
+This tab shows the following evaluation results:
+- `Robustness`: Robustness is compared across all the pre-built models. 
+  > _Higher means more robust_
+- `Fairness`: For Fairness, first the desired outcome along with the grouping feature needs to be specified. Panel on the left shows the fairness scores (_Higher is fairer_) for all the pre-built models. Panel on the Right compares the burden across the sub-groups specified by the grouping feature
+   > _similar bar lengths indicate fairer models_
+  
+- `Explanations`: Here one can specify the model (e.g. SVM) and the [observation (#)](#Observations), and then the CF explanation is displayed by highlighting the fields that change. 
 
-## Models
+--- 
 
-### `Examples` folder Structure
-All examples (e.g. auto_insurance, bank_marketing, etc.) can be found in the
-`examples` directory. Each use case should have its own subdirectory with its
-source code, any related datasets in a `data` directory, and any pickled models
-in the `models` directory.
-
-**NOTE: The `models/` directory and pickle files are not pushed to the git repo
-anymore, to create them locally look [here](#training-existing-models)**
-
-```
-├─ examples
-│  ├── auto_insurance
-│  │   ├── __init__.py
-│  │   ├── auto_insurance_encoder.py
-│  │   ├── make_auto_insurance_models.py
-│  │   ├── data/
-│  │   └── models/
-│  ├── bank_marketing
-│  │   ├── __init__.py
-│  │   ├── bank_marketing_encoder.py
-│  │   ├── make_bank_marketing_models.py
-│  │   ├── data/
-│  │   └── models/
-```
-
-The examples should be setup to read data from the `data` directory for training, create pickle files in the `models` directory,
-and write a `performance_metrics.csv` file in `models` directory with information about the models in csv format. The format is currently in the form:
-```
-Model,<Performance-Metric-Name>
-<model-name>,<performance_metric-value>
-```
-
-The performance metrics file should be created whenever we train the model. The existing binary-classification models have been using `Accuracy` as their performance metric, but the metric may vary per model.
-
-The naming convention we are following for models is: `<example>_<model_type>.pkl`.
-For example, a decision tree model for the diabetes example should be named `diabetes_dtree.pkl` and can be found at: `examples/diabetes/models/diabetes_dtree.pkl`.
-
-## Training Existing Models
-
-To train all existing models you can do:
-
-```
-conda activate model-server
-make train
-```
-
-You can train an individual model by performing `make train-<example>`, such as `make train-diabetes`. Refer to `make help` to see the invidual commands.
-
-## Adding a new Example
-
-An example will consist of: datasets, source code for training and pickling models, and the pickle files.
-
-When adding a new example:
- * Create a new directory under `examples`
- * Place your source code at the top level of the new directory
- * Set a constant random seed inside your code to make sure that the models will be deterministic between trainings (e.g use `random.seed()` and `np.random.seed()`)
- * Place any dataset (csv) files inside a `data` directory
- * Make sure pickled models will be written to the `models` directory
- * Make sure a `performance_metrics.csv` file will be written to the `models` directory
- * Follow the existing naming conventions for pickled models
- * Update the Makefile with a new target to train your model
-
-If you follow the existing file structure and naming convention, then the model_server should be able to find any pickled models. You may run into file path issues when you attempt to run the model_server and invoke the models.
-
-In order to make sure that the docker image running the `model_server` is updated, you will need to create prediction functions for each new model, and update the `.s2i/environment` with a new route for each model being added.
-
-Create a new prediction function for each new model in `s2i_predict.py`. You can follow the general template of the existing functions.
-
-Refer to [here](#adding-a-new-route-to-the-docker-container) for how to update the `.s2i/enviornment` file. The handler function you specify should be what you added in `s2i_predict.py`.
-
-**NOTE:** The name of your pickled model will need to correspond with the expected route for invoking the model. For example, the sending a request to `http://localhost:5000/diabetes_svm/predict` will cause the model_server to invoke `examples/diabetes/models/diabetes_svm.pkl`.
-
-## Running the flask app
-
-Set up the conda environment:
-```
-conda env update -f environment.yaml
-conda activate model-server
-```
-
-Run the app:
-```
-python -m model_server
-```
-
-Or:
-```
-make run
-```
-
-Pickled models are in `examples/<example>/models` and named named `<model_name>.pkl`.
+## Use Cases Around Binary Classification 
 
 
+### <b>Banking: Loan Approval</b>
+
+  - In this use case, each entry in the [dataset](#Datasets) represents a person who takes a credit loan from a bank
+  - Learning task is to classify each person as either a good or bad credit risk based on the set of attributes of that person. 
+  - Model predicts whether loan will be _granted_ or _not-granted_ based on the credit risk evaluation
+  - This dataset was sourced from [Kaggle](https://www.kaggle.com/uciml/german-credit). Originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data))
+
+  This use-case comes with 4 pre-trained [models](#Models), based respectively on 
+  - SVM
+  - Logistic Regression
+  - Decision Tree
+  - Multi-Layered Perceptron. 
+  
+  [Evaluations](#Evaluations):
+   - Robustness
+   - Fairness 
+   - Explanations
+---
+
+### <b>HealthCare: Disease Prediction</b>
+
+-  In this use case, each entry in the dataset represents a patient
+-  Learning task is to predict whether or not a patient has diabetes, based on certain diagnostic measurements included in the dataset
+- Several constraints were placed on the selection of these instances from a larger database
+- In particular, all patients here are females at least 21 years old of Pima Indian heritage
+- This dataset was sourced from [Kaggle](https://www.kaggle.com/uciml/pima-indians-diabetes-database ). Originally from the [National Institute of Diabetes and Digestive and Kidney Diseases](https://www.niddk.nih.gov/)
+
+This use-case comes with 4 pre-trained models, based respectively on 
+  - SVM
+  - Logistic Regression
+  - Decision Tree
+  - Multi-Layered Perceptron. 
+
+   [Evaluations](#Evaluations):
+   - Robustness
+   - Explanations 
+---
+
+### <b>Banking: Propensity to Buy</b>
+
+-  In this use case, each entry in the dataset represents a target of a previous marketing campaign
+-  Learning task is to predict who will make a term deposit with the bank as a result of a similar campaign
+- This dataset was sourced from [Kaggle](https://www.kaggle.com/janiobachmann/bank-marketing-dataset). Originally from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
+
+This use-case comes with 4 pre-trained models, based respectively on 
+  - SVM
+  - Logistic Regression
+  - Decision Tree
+  - Multi-Layered Perceptron. 
+
+   [Evaluations](#Evaluations):
+   - Robustness
+   - Fairness 
+   - Explanations 
+---
+
+### <b>Banking: Predicting Customer Churn</b>
+
+-  In this use case, each entry in the dataset represents a customer or previous customer of the bank
+-  Learning task is to predict who is likely to quit as a customer
+- This dataset was sourced from [Kaggle](https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers)
+
+This use-case comes with 4 pre-trained models, based respectively on 
+  - SVM
+  - Random Forest
+  - Gradient Boosting
+  - Multi-Layered Perceptron. 
+
+   [Evaluations](#Evaluations):
+   - Robustness
+   - Fairness 
+   - Explanations 
+---
+
+### <b>Finance: Income Prediction</b>
+
+-  In this use case, each entry in the dataset represents attributes of a de-identified individual
+-  Learning task is to predict the income bracket of the individual, which has two possible values `>50K` and `<=50K`
+- This dataset was sourced from [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/census+income)
+
+This use-case comes with 3 pre-trained models, based respectively on 
+  - Logistic Regression
+  - Random Forest
+  - XGBoost
+
+   [Evaluations](#Evaluations):
+   - Robustness
+   - Fairness 
+   - Explanations 
+---
+
+## Use Cases Around Predicting a Numeric Value (Regression/Function approximation) 
 
 
-## Building and running the docker container
+### <b>Insurance: Auto Insurance Claims</b>
 
-You need to install [s2i](https://github.com/openshift/source-to-image). We are
-using the the s2i tool with the `c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT` builder image.
+-  In this use case, each entry in the dataset represents an auto insurance claim
+-  Learning task is to predict the final settled claim amount
+- This dataset was sourced from [Emcien](https://www.sixtusdakurah.com/resources/The_Application_of_Regularization_in_Modelling_Insurance_Claims.pdf)
 
-From the `model_server` folder, you can build the docker container using:
+This use-case comes with 5 pre-trained models, based respectively on 
+  - L1 Linear Regression
+  - L2 Linear Regression
+  - Neural Network
+  - Random Forest Regressor
+  - SVR
 
-```
-make docker-build
-```
+   [Evaluations](#Evaluations):
+   - Robustness
+   - Fairness 
+   - Explanations 
+---
 
-This will build an image called `example-models-daemon` which is a valid Cortex daemon. It can be
-run using:
 
-```
-make docker-run
-```
+#### <a id="Glossary"></a><i>Commonly Referenced Terms ###
 
-## Adding a new route to the docker container
-
-We are using s2i tool with the `c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT` builder image to host the models from inside a docker container.
-
-To add a new route to the docker container, you will need to update `.s2i/environment` file and add a new predict function to the `s2i_predict.py`.
-
-The `.s2i/environment` file defines a ROUTES variable with comma seperated entries describing
-each route the server accepts and what function should respond to that route.
-Update the ROUTES variable by appending the new route entry to the end (don't leave a trailing comma at the end).
-
-The entries are separated by commas and consist of `<path>:<module>:<function>`. For example,
-`diabetes_svm/predict:s2i_predict:predict_diabetes_svm` creates an endpoint at `diabetes_svm/predict`
-which calls the `predict_diabetes_svm` function in `s2i_predict.py`.
+| Terms  | Meaning |
+| ------ | ------ |
+| Models |  Machine Learning models that are to be evaluated using Certifai|
+| Counterfactual | Alternative suggested feature values that would result in change of outcome |
+| Robustness |  Measure of how well models maintain an outcome given small changes to the data feature values. The more robust a model is, the greater the changes required to alter the outcome |
+| Fairness | Measure of amount of change required to alter the outcome for the different groups defined by the specified feature given the same model and dataset |
+| Explanations | Comparison of the dataset features, original and counterfactual values for the change that must occur in a dataset with given restrictions to obtain a different outcome  |
