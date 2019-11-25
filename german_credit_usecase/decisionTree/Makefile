@@ -3,9 +3,9 @@
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
 
-MODEL_NAME = "adult_income_xgb"
-DATASET_NAME = "data/adult_income-prepped.csv"
-CONTAINER_NAME = 'adult-income-xgb'
+MODEL_NAME = "german_credit_dtree"
+DATASET_NAME = "data/german_credit-decoded.csv"
+CONTAINER_NAME = 'german-credit-dtree'
 
 PAYLOAD = '{"$$ref": ${DATASET_NAME}, "model_name": ${MODEL_NAME} }'
 
@@ -23,7 +23,7 @@ predict:
 
 test-endpoint:
 	# endpoint from .s2i/environment ROUTES	 
-	time http -v -j POST :5111/adult_income_xgb/predict < test/test_instances.json
+	time http -v -j POST :5111/german_credit_dtree/predict < test/test_instances.json
 
 config:
-	cat .s2i/environment | grep -o -E 'ROUTES=[^ /]+' | sed 's/ROUTES=/MODEL:/'
+	cat .s2i/environment
