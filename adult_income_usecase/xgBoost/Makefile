@@ -24,3 +24,6 @@ predict:
 test-endpoint:
 	# endpoint from .s2i/environment ROUTES	 
 	time http -v -j POST :5111/adult_income_xgb/predict < test/test_instances.json
+
+config:
+	cat .s2i/environment | grep -o -E 'ROUTES=[^ /]+' | sed 's/ROUTES=/MODEL:/'

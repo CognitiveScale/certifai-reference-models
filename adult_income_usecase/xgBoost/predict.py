@@ -5,7 +5,7 @@ import sys
 sys.path.append("./")
 from common_utils.predict_utils import init_model
 
-model_name = os.getenv("MODElNAME")
+model_name = os.getenv("MODElNAME", "adult_income_xgb")
 
 model_ctx = {}
 

@@ -1,0 +1,2 @@
+ROUTES=adult_income_lr/predict:predict:predict_adult_income_lr,adult_income_rf/predict:predict:predict_adult_income_rf,adult_income_xgb/predict:predict:predict_adult_income_xgb
+PREDICT_MODULE=predict
