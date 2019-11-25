@@ -12,13 +12,13 @@ train-all:
 	done
 
 predict-all: create-routes
-		@mkdir -p ${PROJECT_ROOT_DIR}/build-context
-		@rm -rf ${PROJECT_ROOT_DIR}/build-context/
-		rsync -av --exclude=/data --exclude=/build-context --exclude=/models --exclude=all ${PROJECT_ROOT_DIR} ${PROJECT_ROOT_DIR}/all/ ${PROJECT_ROOT_DIR}/build-context		
-	    s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${CONTAINER_NAME}
-		# remove build artifacts
-		rm -rf ${PROJECT_ROOT_DIR}/build-context
-		docker run -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
+	@mkdir -p ${PROJECT_ROOT_DIR}/build-context
+	@rm -rf ${PROJECT_ROOT_DIR}/build-context/
+	rsync -av --exclude=/data --exclude=/build-context --exclude=/models --exclude=all ${PROJECT_ROOT_DIR} ${PROJECT_ROOT_DIR}/all/ ${PROJECT_ROOT_DIR}/build-context		
+	s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${CONTAINER_NAME}
+	# remove build artifacts
+	rm -rf ${PROJECT_ROOT_DIR}/build-context
+	docker run -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
 
 create-routes:
 	echo  "ROUTES=" | tr -d "\n" > .s2i/environment  
