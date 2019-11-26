@@ -1,4 +1,4 @@
-#!/bin/bash
+SHELL := /bin/bash
 
 MODEL_DIRS := decisionTree supportVectorMachine multiLayerPerceptron logisticRegression
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
@@ -25,4 +25,4 @@ create-routes:
 	@for dir in $(MODEL_DIRS) ; do \
 		cd ${PROJECT_ROOT_DIR}$$dir && cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//' | sed -e 's/$$/,/' | tr -d '\n' >> ${CURRENT_DIR}/.s2i/environment  ; \
 	done
-	(cat .s2i/environment | sed 's/.$$//' ; echo "PREDICT_MODULE=predict") | tee .s2i/environment
+	(cat .s2i/environment | sed 's/.$$//' ; echo "PREDICT_MODULE=predict") | tee -a -a .s2i/environment
