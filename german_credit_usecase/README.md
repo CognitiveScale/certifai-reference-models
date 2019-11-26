@@ -1,8 +1,7 @@
 
-# Adult Income Prediction Model
+# Banking: Loan Approval(German Credit)
 
-In this use case, each entry in the dataset represents attributes of a de-identified individual. The learning task is predicting the income bracket which has two possible values ">50K" and "<=50K" .
-This dataset was sourced from [UCI](https://archive.ics.uci.edu/ml/datasets/census+income)
+  In this use case, each entry in the [dataset](#Datasets) represents a person who takes a credit loan from a bank. Learning task is to classify each person as either a good or bad credit risk based on the set of attributes of that person. Model predicts whether loan will be _granted_ or _not-granted_ based on the credit risk evaluation. This dataset was sourced from [Kaggle](https://www.kaggle.com/uciml/german-credit). Originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data))
 
 
 ## Prerequisites  
