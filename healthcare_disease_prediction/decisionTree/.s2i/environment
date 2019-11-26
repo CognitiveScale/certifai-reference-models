@@ -1,0 +1,5 @@
+ROUTES=diabetes_dtree/predict:predict:predict_diabetes_dtree
+TRAIN_MODULE=train
+TRAIN_FUNCTION=train
+PREDICT_MODULE=predict
+PREDICT_FUNCTION=predict_diabetes_dtree
