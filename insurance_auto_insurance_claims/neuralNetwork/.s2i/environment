@@ -1,0 +1,5 @@
+ROUTES=auto_insurance_nn/predict:predict:predict_auto_insurance_nn
+TRAIN_MODULE=train
+TRAIN_FUNCTION=train
+PREDICT_MODULE=predict
+PREDICT_FUNCTION=predict_auto_insurance_nn

@@ -1,0 +1,5 @@
+from linearRegressionL1.predict import predict_auto_insurance_linl1
+from linearRegressionL2.predict import predict_auto_insurance_linl2
+from neuralNetwork.predict import predict_auto_insurance_nn
+from randomForest.predict import predict_auto_insurance_rf
+from supportVectorRegression.predict import predict_auto_insurance_svr

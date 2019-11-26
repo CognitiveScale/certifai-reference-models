@@ -1,0 +1,2 @@
+ROUTES=customer_churn_svm/predict:predict:predict_customer_churn_svm,customer_churn_rf/predict:predict:predict_customer_churn_rf,customer_churn_mlp/predict:predict:predict_customer_churn_mlp,customer_churn_gbm/predict:predict:predict_customer_churn_gbm
+PREDICT_MODULE=predict

@@ -1,0 +1,5 @@
+ROUTES=customer_churn_svm/predict:predict:predict_customer_churn_svm
+TRAIN_MODULE=train
+TRAIN_FUNCTION=train
+PREDICT_MODULE=predict
+PREDICT_FUNCTION=predict_customer_churn_svm
