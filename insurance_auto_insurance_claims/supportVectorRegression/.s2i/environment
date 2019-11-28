@@ -1,5 +1,5 @@
-ROUTES=auto_insurance_svr/predict:predict:predict_auto_insurance_svr
-TRAIN_MODULE=train
+ROUTES=auto_insurance_svr/predict:insurance_auto_insurance_claims.predict:predict_auto_insurance_svr
+TRAIN_MODULE=insurance_auto_insurance_claims.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=predict
+PREDICT_MODULE=insurance_auto_insurance_claims.predict
 PREDICT_FUNCTION=predict_auto_insurance_svr

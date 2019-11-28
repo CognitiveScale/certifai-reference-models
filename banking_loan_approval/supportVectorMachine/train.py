@@ -4,10 +4,9 @@ from sklearn.model_selection import train_test_split
 from sklearn import svm
 import pandas as pd
 import numpy as np
-import os
-import sys
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model
+
+from banking_loan_approval.common_utils.train_utils import Encoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):

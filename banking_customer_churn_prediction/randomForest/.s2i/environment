@@ -1,5 +1,5 @@
-ROUTES=customer_churn_rf/predict:predict:predict_customer_churn_rf
-TRAIN_MODULE=train
+ROUTES=customer_churn_rf/predict:banking_customer_churn_prediction.predict:predict_customer_churn_rf
+TRAIN_MODULE=banking_customer_churn_prediction.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=predict
+PREDICT_MODULE=banking_customer_churn_prediction.predict
 PREDICT_FUNCTION=predict_customer_churn_rf

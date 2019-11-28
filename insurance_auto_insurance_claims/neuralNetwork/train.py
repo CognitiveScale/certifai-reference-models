@@ -5,10 +5,8 @@ from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.metrics import r2_score
 import pandas as pd
-import sys
-
-sys.path.append("./")
-from common_utils.train_utils import CategoricalEncoder, NNPredictWrapper, pickle_model
+from insurance_auto_insurance_claims.common_utils.train_utils import CategoricalEncoder, NNPredictWrapper
+from utils.encode_decode import pickle_model
 
 
 def train(msg):

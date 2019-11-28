@@ -1,17 +1,17 @@
+import pickle
 import random
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
-import sys
-
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model
+from bank_marketing.common_utils.train_utils import Encoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):
     random.seed(0)
     training_data_uri = msg.payload.get("$ref", "./data/bank_marketing-prepped.csv")
     save_model_as = msg.payload.get("model_name")
+    print(msg.payload)
     data = pd.read_csv(training_data_uri)
     feature_names = list(data.columns[:-1])
 

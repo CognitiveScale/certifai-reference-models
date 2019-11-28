@@ -2,10 +2,9 @@ import random
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingClassifier
 import pandas as pd
-import sys
 
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model
+from banking_customer_churn_prediction.common_utils.train_utils import Encoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):

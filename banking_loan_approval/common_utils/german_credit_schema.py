@@ -1,3 +1,4 @@
+import pandas as pd
 feature_names = ['checkingstatus', 'duration', 'history', 'purpose', 'amount', 'savings', 'employ', 'installment', 'status', 'others', 'residence', 'property', 'age', 'otherplans', 'housing', 'cards', 'job', 'liable', 'telephone', 'foreign']
 
 var_xwalk = {'checkingstatus':{

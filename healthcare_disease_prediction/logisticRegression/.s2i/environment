@@ -1,5 +1,5 @@
-ROUTES=diabetes_logit/predict:predict:predict_diabetes_logit
-TRAIN_MODULE=train
+ROUTES=diabetes_logit/predict:healthcare_disease_prediction.predict:predict_diabetes_logit
+TRAIN_MODULE=healthcare_disease_prediction.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=predict
+PREDICT_MODULE=healthcare_disease_prediction.predict
 PREDICT_FUNCTION=predict_diabetes_logit

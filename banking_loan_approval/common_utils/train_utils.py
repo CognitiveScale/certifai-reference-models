@@ -7,9 +7,7 @@ import time
 from sklearn import preprocessing
 import pandas as pd
 import numpy as np
-import sys
-sys.path.append("./")
-from common_utils.german_credit_schema import load_german_dict
+from  banking_loan_approval.common_utils.german_credit_schema import load_german_dict
 
 german_dict = load_german_dict()
 
@@ -76,22 +74,3 @@ class Encoder():
         trans_df = trans_df.reindex(columns=feature_names)
         return trans_df
 
-
-    # function to pickle our models for later access
-
-
-def pkl_path(project, model):
-    return "models/{}_{}.pkl".format(project, model)
-
-
-def pickle_model(model, scaler, model_name, test_accuracy, description, filename):
-    model_obj = {}
-    model_obj["model"] = model
-    model_obj["scaler"] = scaler
-    model_obj["modelName"] = model_name
-    model_obj["modelDescription"] = description
-    model_obj["test_acc"] = test_accuracy
-    model_obj["createdTime"] = int(time.time())
-    with open(filename, "wb") as file:
-        pickle.dump(model_obj, file)
-    print(f"Saved: {model_name}")

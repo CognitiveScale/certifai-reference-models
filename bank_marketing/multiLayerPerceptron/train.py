@@ -3,9 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 import pandas as pd
 import sys
-
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model
+from utils.encode_decode import pickle_model
+from bank_marketing.common_utils.train_utils import Encoder
 
 
 def train(msg):

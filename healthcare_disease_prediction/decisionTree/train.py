@@ -1,9 +1,8 @@
 import random
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeClassifier
-import sys
-sys.path.append("./")
-from common_utils.train_utils import prep_diabetes_dataset, pickle_model
+from healthcare_disease_prediction.common_utils.train_utils import prep_diabetes_dataset
+from utils.encode_decode import pickle_model
 
 def train(msg):
     random.seed(0)

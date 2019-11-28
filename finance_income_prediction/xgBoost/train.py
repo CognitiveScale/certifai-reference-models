@@ -5,11 +5,8 @@ import xgboost as xgb
 from sklearn.metrics import accuracy_score
 import pandas as pd
 import numpy as np
-import os
-import sys
-
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model
+from finance_income_prediction.common_utils.train_utils import Encoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):

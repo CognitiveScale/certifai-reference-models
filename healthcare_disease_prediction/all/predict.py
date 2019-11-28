@@ -1,5 +1,5 @@
-from logisticRegression.predict import predict_diabetes_logit
-from decisionTree.predict import predict_diabetes_dtree
-from multiLayerPerceptron.predict import predict_diabetes_mlp
-from supportVectorMachine.predict import predict_diabetes_svm
+from healthcare_disease_prediction.logisticRegression.predict import predict_diabetes_logit
+from healthcare_disease_prediction.decisionTree.predict import predict_diabetes_dtree
+from healthcare_disease_prediction.multiLayerPerceptron.predict import predict_diabetes_mlp
+from healthcare_disease_prediction.supportVectorMachine.predict import predict_diabetes_svm
 

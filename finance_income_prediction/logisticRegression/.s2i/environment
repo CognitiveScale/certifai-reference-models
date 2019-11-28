@@ -1,5 +1,5 @@
-ROUTES=adult_income_lr/predict:predict:predict_adult_income_lr
-TRAIN_MODULE=train
+ROUTES=adult_income_lr/predict:finance_income_prediction.predict:predict_adult_income_lr
+TRAIN_MODULE=finance_income_prediction.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=predict
+PREDICT_MODULE=finance_income_prediction.predict
 PREDICT_FUNCTION=predict_adult_income_lr

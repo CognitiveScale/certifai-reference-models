@@ -4,12 +4,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import pandas as pd
 import numpy as np
-import os
-import sys
 from sklearn.ensemble import RandomForestClassifier
-
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model, pkl_path
+from finance_income_prediction.common_utils.train_utils import Encoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):

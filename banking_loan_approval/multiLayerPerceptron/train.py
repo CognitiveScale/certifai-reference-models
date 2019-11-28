@@ -6,14 +6,15 @@ import pandas as pd
 import numpy as np
 import os
 import sys
-sys.path.append("./")
-from common_utils.train_utils import Encoder, pickle_model
+
+from banking_loan_approval.common_utils.train_utils import Encoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):
     random.seed(0)
     training_data_uri = msg.payload.get("$ref", "./data/german_credit-decoded.csv")
-    save_model_as = msg.payload.get('model_name')
+    save_model_as = msg.payload.get("model_name")
     df = pd.read_csv(training_data_uri)
     # Separate outcome
     y = df["outcome"]
@@ -31,18 +32,11 @@ def train(msg):
     )
 
     # start model training
-    mlp = MLPClassifier(hidden_layer_sizes=(20,20),max_iter=2000)
+    mlp = MLPClassifier(hidden_layer_sizes=(20, 20), max_iter=2000)
     mlp.fit(X_train.values, y_train.values)
-    mlp_acc = mlp.score(X_test.values,y_test.values)
-    model_binary = f'models/{save_model_as}.pkl'
-    pickle_model(
-        mlp,
-        scaler,
-        "MLP",
-        mlp_acc,
-        "Basic MLP model",
-        model_binary,
-    )
+    mlp_acc = mlp.score(X_test.values, y_test.values)
+    model_binary = f"models/{save_model_as}.pkl"
+    pickle_model(mlp, scaler, "MLP", mlp_acc, "Basic MLP model", model_binary)
     print(mlp_acc)
-    return (f'model: {model_binary}')
+    return f"model: {model_binary}"
 

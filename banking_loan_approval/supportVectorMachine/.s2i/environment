@@ -1,5 +1,5 @@
-ROUTES=german_credit_svm/predict:predict:predict_german_credit_svm
-TRAIN_MODULE=train
+ROUTES=german_credit_svm/predict:banking_loan_approval.predict:predict_german_credit_svm
+TRAIN_MODULE=banking_loan_approval.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=predict
+PREDICT_MODULE=banking_loan_approval.predict
 PREDICT_FUNCTION=predict_german_credit_svm

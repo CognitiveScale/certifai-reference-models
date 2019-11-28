@@ -4,100 +4,9 @@ import pickle
 import time
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
-
+import sys
 
 import numpy as np
-
-# TODO  (CMA): get columns to be passed from HostedModel?
-COLUMNS = [
-    "State Code",
-    "Claim Amount",
-    "Coverage",
-    "Education",
-    "EmploymentStatus",
-    "Gender",
-    "Income",
-    "Location Code",
-    "Marital Status",
-    "Monthly Premium Auto",
-    "Months Since Last Claim",
-    "Months Since Policy Inception",
-    "Number of Open Complaints",
-    "Number of Policies",
-    "Policy",
-    "Claim Reason",
-    "Sales Channel",
-    "Vehicle Class",
-    "Vehicle Size",
-]  # "Total Claim Amount"
-
-
-def get_columns_dict():
-    claims_dict = {
-        "State Code": ["KS", "NE", "OK", "MO", "IA"],
-        "Claim Amount": ["Amount"],
-        "Coverage": ["Basic", "Extended", "Premium"],
-        "Education": [
-            "High School or Below",
-            "College",
-            "Bachelor",
-            "Master",
-            "Doctor",
-        ],
-        "EmploymentStatus": [
-            "Unemployed",
-            "Employed",
-            "Medical Leave",
-            "Disabled",
-            "Retired",
-        ],
-        "Gender": ["M", "F"],
-        "Income": ["Amount"],
-        "Location Code": ["Suburban", "Rural", "Urban"],
-        "Marital Status": ["Married", "Single", "Divorced"],
-        "Monthly Premium Auto": ["Amount"],
-        "Months Since Last Claim": ["Months"],
-        "Months Since Policy Inception": ["Months"],
-        "Number of Open Complaints": ["Number"],
-        "Number of Policies": ["Number"],
-        "Policy": [
-            "Corporate L1",
-            "Corporate L2",
-            "Corporate L3",
-            "Personal L1",
-            "Personal L2",
-            "Personal L3",
-            "Special L1",
-            "Special L2",
-            "Special L3",
-        ],
-        "Claim Reason": ["Collision", "Scratch/Dent", "Hail", "Other"],
-        "Sales Channel": ["Agent", "Web", "Call Center", "Branch"],
-        "Total Claim Amount": ["Amount"],
-        "Vehicle Class": [
-            "Two-Door Car",
-            "Four-Door Car",
-            "SUV",
-            "Luxury SUV",
-            "Sports Car",
-            "Luxury Car",
-        ],
-        "Vehicle Size": ["Medsize", "Small", "Large"],
-    }
-    return claims_dict
-
-
-def get_expanded_cols(df_csv, claims_dict):
-    claims_colnames = []
-    for header in claims_dict:
-        if isinstance(df_csv[header].iloc[0], (np.int, np.int64)) or isinstance(
-            df_csv[header].iloc[0], (np.float, np.float64)
-        ):
-            claims_colnames.append(header)
-        else:
-            claims_colnames.extend([header + "_" + str for str in claims_dict[header]])
-    return claims_colnames
-
 
 class CategoricalEncoder:
 
@@ -228,6 +137,98 @@ class CategoricalEncoder:
             all_pds.append(new_df)
 
         return pd.concat(all_pds, axis=1)
+
+
+# TODO  (CMA): get columns to be passed from HostedModel?
+COLUMNS = [
+    "State Code",
+    "Claim Amount",
+    "Coverage",
+    "Education",
+    "EmploymentStatus",
+    "Gender",
+    "Income",
+    "Location Code",
+    "Marital Status",
+    "Monthly Premium Auto",
+    "Months Since Last Claim",
+    "Months Since Policy Inception",
+    "Number of Open Complaints",
+    "Number of Policies",
+    "Policy",
+    "Claim Reason",
+    "Sales Channel",
+    "Vehicle Class",
+    "Vehicle Size",
+]  # "Total Claim Amount"
+
+
+def get_columns_dict():
+    claims_dict = {
+        "State Code": ["KS", "NE", "OK", "MO", "IA"],
+        "Claim Amount": ["Amount"],
+        "Coverage": ["Basic", "Extended", "Premium"],
+        "Education": [
+            "High School or Below",
+            "College",
+            "Bachelor",
+            "Master",
+            "Doctor",
+        ],
+        "EmploymentStatus": [
+            "Unemployed",
+            "Employed",
+            "Medical Leave",
+            "Disabled",
+            "Retired",
+        ],
+        "Gender": ["M", "F"],
+        "Income": ["Amount"],
+        "Location Code": ["Suburban", "Rural", "Urban"],
+        "Marital Status": ["Married", "Single", "Divorced"],
+        "Monthly Premium Auto": ["Amount"],
+        "Months Since Last Claim": ["Months"],
+        "Months Since Policy Inception": ["Months"],
+        "Number of Open Complaints": ["Number"],
+        "Number of Policies": ["Number"],
+        "Policy": [
+            "Corporate L1",
+            "Corporate L2",
+            "Corporate L3",
+            "Personal L1",
+            "Personal L2",
+            "Personal L3",
+            "Special L1",
+            "Special L2",
+            "Special L3",
+        ],
+        "Claim Reason": ["Collision", "Scratch/Dent", "Hail", "Other"],
+        "Sales Channel": ["Agent", "Web", "Call Center", "Branch"],
+        "Total Claim Amount": ["Amount"],
+        "Vehicle Class": [
+            "Two-Door Car",
+            "Four-Door Car",
+            "SUV",
+            "Luxury SUV",
+            "Sports Car",
+            "Luxury Car",
+        ],
+        "Vehicle Size": ["Medsize", "Small", "Large"],
+    }
+    return claims_dict
+
+
+def get_expanded_cols(df_csv, claims_dict):
+    claims_colnames = []
+    for header in claims_dict:
+        if isinstance(df_csv[header].iloc[0], (np.int, np.int64)) or isinstance(
+            df_csv[header].iloc[0], (np.float, np.float64)
+        ):
+            claims_colnames.append(header)
+        else:
+            claims_colnames.extend([header + "_" + str for str in claims_dict[header]])
+    return claims_colnames
+
 
 
 class NNPredictWrapper:

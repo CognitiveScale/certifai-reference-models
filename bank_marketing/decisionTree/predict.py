@@ -2,8 +2,7 @@ import numpy as np
 import os
 import pickle
 import sys
-sys.path.append("./")
-from common_utils.predict_utils import init_model
+from utils.encode_decode import init_model
 
 model_name = os.getenv("MODElNAME", "bank_marketing_dtree")
 

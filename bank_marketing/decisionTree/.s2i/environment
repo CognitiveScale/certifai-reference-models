@@ -1,5 +1,5 @@
-ROUTES=bank_marketing_dtree/predict:predict:predict_bank_marketing_dtree
-TRAIN_MODULE=train
+ROUTES=bank_marketing_dtree/predict:bank_marketing.predict:predict_bank_marketing_dtree
+TRAIN_MODULE=bank_marketing.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=predict
+PREDICT_MODULE=bank_marketing.predict
 PREDICT_FUNCTION=predict_bank_marketing_dtree

@@ -14,27 +14,33 @@ if [[ -z $target || -z $modeldir || -z $jobtype ]]; then
 fi
 
 # setting build-context init
+projectname=$(pwd | awk -F / '{print $NF}')
 mkdir -p build-context
 rm -rf build-context/*
-mkdir build-context/models
-mkdir build-context/data
-cp -r common_utils build-context/
-cp -a ${modeldir}/. build-context/
+mkdir -p build-context/${projectname}
+mkdir build-context/${projectname}/models
+mkdir build-context/${projectname}/data
+
+# copy files
+rsync -av --exclude=.s2i  ${modeldir}/ build-context/${projectname}/
+cp -r ../utils build-context/
+cp -r common_utils build-context/${projectname}/
+cp -r ${modeldir}/.s2i build-context
 
 echo "setting container as ${target} and model-dir as ${modeldir}"
 
 if [ $jobtype == "train" ]; then
     echo "starting train job"       
     cat ${modeldir}/requirements_train.txt > build-context/requirements.txt
-    rm build-context/requirements_train.txt build-context/requirements_predict.txt
+    rm build-context/${projectname}/requirements_train.txt build-context/${projectname}/requirements_predict.txt
     # s2i builds
-    s2i build --rm -c build-context c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT ${target}
+    s2i build -c build-context c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT ${target}
 
 elif [ $jobtype == "predict" ]; then
     echo "starting predict job"
     cat ${modeldir}/requirements_predict.txt > build-context/requirements.txt
-    rm build-context/requirements_train.txt build-context/requirements_predict.txt
-    s2i build --rm -c build-context c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${target}
+    rm build-context/${projectname}/requirements_train.txt build-context/${projectname}/requirements_predict.txt
+    s2i build -c build-context c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${target}
 
 else
     echo ERROR: Invalid job-type argument to "./build.sh <target> <modeldir> <job-type(train/predict)>" 1>&2

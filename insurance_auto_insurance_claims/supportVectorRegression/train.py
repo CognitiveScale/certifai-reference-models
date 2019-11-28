@@ -4,10 +4,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 import pandas as pd
-import sys
-
-sys.path.append("./")
-from common_utils.train_utils import CategoricalEncoder, pickle_model
+from insurance_auto_insurance_claims.common_utils.train_utils import CategoricalEncoder
+from utils.encode_decode import pickle_model
 
 
 def train(msg):
