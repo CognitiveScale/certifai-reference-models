@@ -15,9 +15,14 @@ TRAIN_MODULE=<module containing train.py>
 TRAIN_FUNCTION=<function to invoke to start model training>
 ```
 
-7. to start building containers use: 
-> `s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT <CONTAINER_NAME>`
+7. to build the training container: 
+> `s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT <TRAIN_CONTAINER_NAME>`
 
-8. to run the container:
+8. to run the training container:
+>  `docker run --rm  -v $(PROJECT_ROOT_DIR)/data:/model/data -v $(PROJECT_ROOT_DIR)/models:/model/models -e TRAIN=1 -e PAYLOAD=${PAYLOAD} -it --rm ${TRAIN_CONTAINER_NAME}`
 
-> `	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p <HOST-PORT>:5000 -it ${CONTAINER_NAME}-predict`
+9. to build the predict container: 
+> `s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${PREDICT_CONTAINER_NAME}`
+
+10. to run the predict container:
+> `docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${CONTAINER_NAME}-predict`
