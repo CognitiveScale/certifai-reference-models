@@ -1,4 +1,4 @@
-.PHONY: setup-build-space train-projects-all predict-projects-all create-routes-all test-all-endpoints
+.PHONY: setup-build-space train-projects-all predict-projects-all create-routes-all test-all-endpoints run-model-server
 
 SHELL := /bin/bash
 
@@ -40,6 +40,10 @@ create-routes-all: setup-build-space
 test-all-endpoints:
 	@for dir in $(MODEL_DIRS) ; do \
 		echo "testing "$$dir ; \
-		cd ${PROJECT_ROOT_DIR}$$dir/all && make test-all &2>1; \
+		cd ${PROJECT_ROOT_DIR}$$dir/all && make test-all ; \
 		sleep .5 ; \
 	done
+
+
+run-model-server:
+	docker run --rm -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
