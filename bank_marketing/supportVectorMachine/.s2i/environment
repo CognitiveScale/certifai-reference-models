@@ -1,0 +1,5 @@
+ROUTES=bank_marketing_svm/predict:bank_marketing.predict:predict_bank_marketing_svm
+TRAIN_MODULE=bank_marketing.train
+TRAIN_FUNCTION=train
+PREDICT_MODULE=bank_marketing.predict
+PREDICT_FUNCTION=predict_bank_marketing_svm
