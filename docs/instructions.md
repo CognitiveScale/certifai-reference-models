@@ -1,4 +1,4 @@
-# Adding Ml Models to Projects
+# Adding ML Models to Projects
 
 To add models to available projects:-
 1. create a model dir (e.g logisticRegression, catboost etc.) inside the project of your choice
