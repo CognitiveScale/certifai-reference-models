@@ -1,0 +1,5 @@
+ROUTES=german_credit_logit/predict:banking_loan_approval.predict:predict_german_credit_logit
+TRAIN_MODULE=banking_loan_approval.train
+TRAIN_FUNCTION=train
+PREDICT_MODULE=banking_loan_approval.predict
+PREDICT_FUNCTION=predict_german_credit_logit

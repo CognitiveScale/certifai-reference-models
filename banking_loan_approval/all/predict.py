@@ -1,0 +1,4 @@
+from banking_loan_approval.decisionTree.predict import predict_german_credit_dtree
+from banking_loan_approval.logisticRegression.predict import predict_german_credit_logit
+from banking_loan_approval.multiLayerPerceptron.predict import predict_german_credit_mlp
+from banking_loan_approval.supportVectorMachine.predict import predict_german_credit_svm
