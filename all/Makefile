@@ -22,7 +22,7 @@ predict-projects-all: create-routes-all
 	@rm -rf ${PROJECT_ROOT_DIR}/build-context/
 	rsync -av --exclude=/.git* --exclude=/data --exclude=/build-context --exclude=models*  --exclude=all --delete-excluded  ${PROJECT_ROOT_DIR}/ ${PROJECT_ROOT_DIR}/all/ ${PROJECT_ROOT_DIR}/build-context		
 	rsync -avr --include="setup.sh" --exclude="*" ${PROJECT_ROOT_DIR}/**/**/ ${PROJECT_ROOT_DIR}/build-context
-	s2i build --rm -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${CONTAINER_NAME}
+	s2i build --rm -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-daemon-python36-slim:1.0.0 ${CONTAINER_NAME}
 	# remove build artifacts
 	rm -rf ${PROJECT_ROOT_DIR}/build-context
 	docker run --rm -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
