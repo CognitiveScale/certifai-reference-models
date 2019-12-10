@@ -17,9 +17,9 @@ TRAIN_FUNCTION=<function to invoke to start model training>
 ```
 
 7. to build the training container we use s2i(source-to-image) with a base container with minimal dependencies(e.g. python3). Refer to [s2i-docs](https://github.com/openshift/source-to-image]) for further study
-> `s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT <TRAIN_CONTAINER_NAME>`
+> `s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0.0 <TRAIN_CONTAINER_NAME>`
 
-> `c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT` is the base image as discussed above
+> `c12e/cortex-s2i-model-python36-slim:1.0.0` is the base image as discussed above
 
 
 
@@ -29,7 +29,7 @@ TRAIN_FUNCTION=<function to invoke to start model training>
 > here we use volume mounts(-v) to persist files(model_binaries,data etc.) on disk
 
 9. to build the predict container: 
-> `s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${PREDICT_CONTAINER_NAME}`
+> `s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0.0 ${PREDICT_CONTAINER_NAME}`
 
 10. to run the predict container:
 > `docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${PREDICT_CONTAINER_NAME}`
