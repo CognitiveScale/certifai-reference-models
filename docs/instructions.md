@@ -39,7 +39,7 @@ TRAIN_FUNCTION=<function to invoke to start model training>
 The predict endpoint takes an array of instances containing an array of feature values.
 ```
 curl -X POST \
- http://localhost:8551/<route> \
+ http://localhost:5111/<route> \
  -H 'Content-Type: application/json' \
  -d '{
 "payload": { "instances": [[7,107,74,0,0,29.6,0.254,31]] }
