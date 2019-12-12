@@ -1,49 +1,58 @@
 # logistic_regression_api.R
 "pay"
 # Global code; gets executed at plumb() time.
-if(!require(mlbench)){
-  install.packages("mlbench")
+
+# caret is needed for the train/test split; can remove if we aren't doing that.
+if(!require(jsonlite)){
+  install.packages("jsonlite")
 }
+library(jsonlite)
 if(!require(caret)){
   install.packages("caret")
 }
-library(mlbench)
 library(caret)
-data(BreastCancer)
+
+data <- read.csv(file='../german_credit/data/german_credit-decoded.csv', header=TRUE, sep=',')
 set.seed(1234)
 
+## here I'm assuming we're generating a dynamic train/test split. For a static split, 
+## read in train_data using read.csv directly, using the format above. 
 
-trainIndex <- createDataPartition(BreastCancer$Class, p = .8, 
+trainIndex <- createDataPartition(data$outcome, p = .8, 
                                   list = FALSE, 
                                   times = 1)
+train_data <- data[trainIndex,]
 
-train <- BreastCancer[trainIndex,]
-train <- subset(train, select = -c(Id))
-train$Class <- ifelse(train$Class == "benign", 1, 0)
-indx <- sapply(train, is.factor)
-train[indx] <- lapply(train[indx], function(x) as.numeric(as.character(x)))
+## to generate test set:
+## data <- read.csv(file='../german_credit/data/german_credit-decoded.csv', header=TRUE, sep=',')
+## set.seed(1234)
+## trainIndex <- createDataPartition(data$outcome, p = .8, 
+##                                  list = FALSE, 
+##                                  times = 1)
+##test_data <- data[-trainIndex,]
 
-default.Cl.thickness <- mean(train$Cl.thickness, na.rm=TRUE)
-default.Cell.size <- mean(train$Cell.size, na.rm=TRUE)
-default.Cell.shape <- mean(train$Cell.shape, na.rm=TRUE)
-default.Marg.adhesion <- mean(train$Marg.adhesion, na.rm=TRUE)
-default.Epith.c.size <- mean(train$Epith.c.size, na.rm=TRUE)
-default.Bare.nuclei <- mean(train$Bare.nuclei, na.rm=TRUE)
-default.Bl.cromatin <- mean(train$Bl.cromatin, na.rm=TRUE)
-default.Normal.nucleoli <- mean(train$Normal.nucleoli, na.rm=TRUE)
-default.Mitoses <- mean(train$Mitoses, na.rm=TRUE)
+num_col <- c(2, 5, 8, 11, 16, 18) # note, R is one-based not zero-based
+cat_col <- c(1, 3, 4, 6, 7, 9, 10, 12, 13, 14, 15, 17, 19, 20)
 
-train$Cl.thickness[is.na(train$Cl.thickness)] = default.Cl.thickness
-train$Cell.size[is.na(train$Cell.size)] = default.Cell.size
-train$Cell.shape[is.na(train$Cell.shape)] = default.Cell.shape
-train$Marg.adhesion[is.na(train$Marg.adhesion)] = default.Marg.adhesion
-train$Epith.c.size[is.na(train$Epith.c.size)] = default.Epith.c.size
-train$Bare.nuclei[is.na(train$Bare.nuclei)] = default.Bare.nuclei
-train$Bl.cromatin[is.na(train$Bl.cromatin)] = default.Bl.cromatin
-train$Normal.nucleoli[is.na(train$Normal.nucleoli)] = default.Normal.nucleoli
-train$Mitoses[is.na(train$Mitoses)] = default.Mitoses
+for(cat in cat_col){
+  train_data[[cat]] <- factor(train_data[[cat]], levels=levels(data[[cat]]))
+  ## the levels command makes sure we include any levels that aren't in the training set
+  ## Will need to edit to read in a pre-defined list of levels, if we aren't dynamically 
+  ## creating the train/test split
+}
+
+defaultValues <- vector(mode="list", length=20)
+for (num in num_col){
+  train_data[[num]] <- as.numeric(as.character(train_data[[num]])) # will convert any non-numeric to NA, and make sure e.g. "1" gets coded as 1
+  defaultValues[[num]] <- mean(train_data[[num]], na.rm=TRUE) # mean imputation for missing values
+  train_data[[num]][is.na(train_data[[num]])] = defaultValues[[num]]
+  train_data[[num]] = scale(train_data[[num]]) # analogous to the standard scalar used in python
+}
+
+train_data$outcome <- train_data$outcome - 1 # originally encoded as 1/2
+
 # Building the model
-model <- glm(Class ~.,family=binomial(link='logit'),data=train)
+model <- glm(outcome ~.,family=binomial(link='logit'),data=train_data)
 
 
 #' predict 'Class' for set of inputs with  logistic regression
@@ -52,23 +61,29 @@ model <- glm(Class ~.,family=binomial(link='logit'),data=train)
 #' @response 200 Returns the predictor
 calculate_prediction <- function(payload) {
   ## payload should contain "instances", which is a list of either vectors of inputs, 
-  ## or JSONs of inputs obtained using toJSON on a dataframe in R
+  ## or JSONs of inputs obtained using toJSON on a dataframe in R.
+  ## This assumes that your inputs inlcude the "output" attribute,  but doesn't
+  ## use it for prediction. To change, replace colnames(data) with colnames(data)[-21]
   test_data <- as.data.frame(payload)
-  colnames(test_data) <- c("Cl.thickness","Cell.size","Cell.shape",   
-                           "Marg.adhesion","Epith.c.size","Bare.nuclei","Bl.cromatin",    
-                           "Normal.nucleoli", "Mitoses")
+  colnames(test_data) <- colnames(data)
   
-  test_data$Cl.thickness[is.na(test_data$Cl.thickness)] = default.Cl.thickness
-  test_data$Cell.size[is.na(test_data$Cell.size)] = default.Cell.size
-  test_data$Cell.shape[is.na(test_data$Cell.shape)] = default.Cell.shape
-  test_data$Marg.adhesion[is.na(test_data$Marg.adhesion)] = default.Marg.adhesion
-  test_data$Epith.c.size[is.na(test_data$Epith.c.size)] = default.Epith.c.size
-  test_data$Bare.nuclei[is.na(test_data$Bare.nuclei)] = default.Bare.nuclei
-  test_data$Bl.cromatin[is.na(test_data$Bl.cromatin)] = default.Bl.cromatin
-  test_data$Normal.nucleoli[is.na(test_data$Normal.nucleoli)] = default.Normal.nucleoli
-  test_data$Mitoses[is.na(test_data$Mitoses)] = default.Mitoses
+  for(cat in cat_col){
+    test_data[[cat]] <-  factor(test_data[[cat]], levels=levels(data[[cat]]))
+    ## Will need to edit to read in a pre-defined list of levels, if we aren't dynamically 
+    ## creating the train/test split
+  }
   
-  pred <<- ifelse(predict(model, test_data, type = "response")>0.5, 1, 0)
+  for (num in num_col){
+    test_data[[num]] <- as.numeric(as.character(test_data[[num]]))
+    test_data[[num]][is.na(test_data[[num]])] = defaultValues[[num]]
+    test_data[[num]] <- scale(test_data[[num]], 
+                              center=attr(train_data[[num]], "scaled:center"),
+                              scale=attr(train_data[[num]], "scaled:scale")
+                              ) # scales using same values as training data
+  }
+  
+  pred <<- ifelse(predict(model, test_data, type = "response")>0.5, 2, 1)
+  # note, using original 1/2 rather than 0/1 -- edit end of previous line if you want 0,1
  
   pred_list <<- list(payload=list(predictions=pred))
   pred_json <<- toJSON(pred_list)
