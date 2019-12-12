@@ -48,6 +48,66 @@ To add models to available projects:
   docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${PREDICT_CONTAINER_NAME}
   ```
 
+## Model Predict: Request/Response
+
+The predict endpoint takes an array of instances containing an array of feature values.
+```
+curl -X POST \
+ http://localhost:5111/<route> \
+ -H 'Content-Type: application/json' \
+ -d '{
+"payload": { "instances": [[7,107,74,0,0,29.6,0.254,31]] }
+}'
+```
+`route` is defined using .s2i/environment file
+
+It returns an array of predictions.
+```
+{
+   "payload": {
+     "predictions": [1]
+   }
+}
+```
+
+Sample example predict for the bank_marketing:
+
+`REQUEST`
+
+```
+curl -X POST \
+  http://localhost:5111/bank_marketing_logit/predict  \
+  -H 'Content-Type: application/json' \
+  -d '{
+      "payload": {
+		"instances": [
+			"age_25_or_above",
+			"job_admin.",
+			"marital_married",
+			"education_secondary",
+			"default_no",
+			2343,
+			"housing_yes",
+			"loan_no",
+			"contact_unknown",
+			"month_may",
+			1042,
+			1,
+			-1,
+			0,
+			"poutcome_unknown"
+		]
+      }
+}'
+```
+`RESPONSE`
+
+```
+{"payload":{"predictions":[1]}}
+```
+
+
+
 ## Code Organization Example
 
 finance_income_prediction
