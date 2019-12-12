@@ -1,31 +1,54 @@
 
 # Banking: Propensity to Buy (Bank Marketing)
 
-In this use case, each entry in the dataset represents a target of a previous marketing campaign. earning task is to predict who will make a term deposit with the bank as a result of a similar campaign. This dataset was sourced from [Kaggle](https://www.kaggle.com/janiobachmann/bank-marketing-dataset). Originally from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing))
+**Learning Task Type**: Binary Classification
 
+**Description**: Each dataset row represents the attribute values for a customer or previous customer of the bank. The models predict whether or not the customer will close their accounts or remain a customer.  
+
+**Dataset Source**: [Kaggle](https://www.kaggle.com/janiobachmann/bank-marketing-dataset) - Originally from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
+
+**Pre-trained Models**:
+
+  - SVM
+  - Logistic Regression
+  - Decision Tree
+  - Multi-layered Perception
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
 
 ## Prerequisites  
+
 1. [Source-to-Image](https://github.com/openshift/source-to-image)
-2. Make
-3. (Optional) [Httpie](https://httpie.org/) (only if you want to run ```make test-endpoint```)
+2. Make (Program building utility available by default with Linux and MacOS; for Windows use GNUWin32)
+3. [Httpie](https://httpie.org/) (Required to run `make test-endpoint`)
 
-## Quick Start
-1. ### Model train (e.g. logisticRegression)
-	1. `cd logisticRegression` 
-	2. build train-container `make build-train`
-	3. run train-container `make train`
-2.	### Model Predict
-	1.	`cd logisticRegression`
-	2.	build predict-container `make build-predict`
-	3.	run predict-container `make predict`
+## Train, Predict, and Test Use Case Models Individually
 
-3. ### Run test:
-	 1.	`cd logisticRegression`
-	 2.	`make test-endpoint`
+Follow the instructions to train, predict, and test each model individually.
 
+1\. Model train (e.g. logisticRegression)
+	 	a\. Go to the use-case/model directory  - `cd useCase/modelName`
+	 	b\. Build train-container -  `make build-train`
+		c\. Run train-container - `make train`
 
-## Build & Run all models together
+2\. Model Predict
+		a\. Go to the use-case/model directory - `cd useCase/modelName`
+		b\. Build predict-container -  `make build-predict`
+		c\. Run predict-container -  `make predict`
 
-1.	`cd all`
-2.	to train all models `make train-all`
-3.	to predict all models `make predict-all` 
+3\. Run test
+	 	a\. Go to the use-case/model directory - `cd useCase/modelName`
+	 	b\. Build the test endpoint - `make test-endpoint`
+
+## Train, Predict, and Test Use Case Models Together
+
+Follow the instructions to train, predict, and test all the models for the use case at the same time.
+
+		1.	Go to the useCase/all directory - `cd useCase/all`
+		2.	Train all models -  `make train-all`
+		3.	Predict all models -  `make predict-all`

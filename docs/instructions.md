@@ -1,42 +1,57 @@
 # Adding ML Models to Projects
 
-To add models to available projects:-
-1. create a model dir (e.g logisticRegression, catboost etc.) inside the project of your choice
-2. add a training module (e.g train.py) and a predict module (eg. predict.py)
-3. to add train and predict dependencies create files named `requirements_train.txt` and `requirements_predict.txt` respectively in the model directory created above
-   > note dependencies are installed using pip
-4. additional native dependencies can be installed with a `setup.sh` script present at the root level in the model directory. 
-> `setup.sh` is executed before installing other code dependencies mentioned in <requirements_.txt>
-5. train && predict(service routes) configurations are handled using an .s2i/environment file. To create such a config add a `.s2i/environment` file at the root level model directory
-6. structure of `.s2i/environment` file
+To add models to available projects:
 
-```
-ROUTES=serviceroute:predictModule:predictFunction
-TRAIN_MODULE=<module containing train.py>
-TRAIN_FUNCTION=<function to invoke to start model training>
-```
+1. Create a model directory inside your project (e.g logisticRegression, catboost etc.).
 
-7. to build the training container we use s2i(source-to-image) with a base container with minimal dependencies(e.g. python3). Refer to [s2i-docs](https://github.com/openshift/source-to-image]) for further study
-> `s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT <TRAIN_CONTAINER_NAME>`
+2. Add a training module (e.g train.py) and a predict module (eg. predict.py).
 
-> `c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT` is the base image as discussed above
+3. Add train and predict dependencies by creating files named `requirements_train.txt` and `requirements_predict.txt` respectively in the model directory created above.
 
+   **NOTE**: Dependencies are installed using `pip`.
 
+4. Install additional native dependencies with a `setup.sh` script present at the root-level in the model directory.
 
-8. to run the training container:
->  `docker run --rm  -v $(PROJECT_ROOT_DIR)/data:/model/data -v $(PROJECT_ROOT_DIR)/models:/model/models -e TRAIN=1 -e PAYLOAD=${PAYLOAD} -it --rm ${TRAIN_CONTAINER_NAME}`
+  `setup.sh` is executed before installing other code dependencies defined in the `requirements.txt` file.
 
-> here we use volume mounts(-v) to persist files(model_binaries,data etc.) on disk
+5. Train & predict configurations (service routes) are handled using an .s2i/environment file. To create service routes configurations, add an `.s2i/environment` file at the root level of your model directory. Structure the `.s2i/environment` file as follows:
 
-9. to build the predict container: 
-> `s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${PREDICT_CONTAINER_NAME}`
+  ```
+  ROUTES=serviceroute:predictModule:predictFunction
+  TRAIN_MODULE=<module containing train.py>
+  TRAIN_FUNCTION=<function to invoke to start model training>
+  ```
 
-10. to run the predict container:
-> `docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${PREDICT_CONTAINER_NAME}`
+7. Build the training container using the s2i (source-to-image) with a base container with minimal dependencies (e.g. python3). Refer to [s2i-docs](https://github.com/openshift/source-to-image]) for more information.
 
-## Code Organization
+ ```
+ s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT <TRAIN_CONTAINER_NAME>
+ ```
 
-### finance_income_prediction (e.g.)
+  The base image as discussed above is `c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT`.
+
+8. Run the training container using volume mount (-v) to persist files (model_binaries, data etc.) on disk.
+
+  ```
+  docker run --rm  -v $(PROJECT_ROOT_DIR)/data:/model/data -v $(PROJECT_ROOT_DIR)/models:/model/models -e TRAIN=1 -e PAYLOAD=${PAYLOAD} -it --rm ${TRAIN_CONTAINER_NAME}
+  ```
+
+9. Build the predict container.
+
+  ```
+  s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${PREDICT_CONTAINER_NAME}
+  ```
+
+10. Run the predict container.
+
+  ```
+  docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${PREDICT_CONTAINER_NAME}
+  ```
+
+## Code Organization Example
+
+finance_income_prediction
+
 ```
 ├── README.md
 ├── all
@@ -93,11 +108,11 @@ TRAIN_FUNCTION=<function to invoke to start model training>
     └── train.py
 ```
 
-#### In the above e.g. we have 3 sample models namely logisticRegression, randomForest and xgBoost to predict adult income given individual features like education levels, gender, job description etc. 
+In the finance_income_prediction example the three sample models, logisticRegression, randomForest, and xgBoost, predict adult income given features like education level, gender, and job description. 
 
-> files pre-fixed with * are auto-generated 
+  **NOTE**: Files pre-fixed with * are auto-generated.
 
-## Common 
+## Common
 
 At the root level we define modules which are to be used across all the models for instance `common_utils.train_utils.py`, `data/adult_income-prepped.csv` etc.
 
@@ -105,7 +120,7 @@ Even directories common to all projects can be included like `utils` which inclu
 
 ## build.sh
 
-Similarily, `build.sh` at top-level dir helps us customize files, folders, artifacts that we want to include in the container. 
+Similarily, `build.sh` at top-level dir helps us customize files, folders, artifacts that we want to include in the container.
 
 This gives us enough flexibility as well as power to structure the content as and how we want. It also includes the `s2i` base images that are used as builders for train and predict.
 
@@ -113,7 +128,7 @@ Regular users can use the default setup that comes with `build.sh`.
 
 ## Makefile
 
-Each model (e.g randomForest) dir also consists of a  `Makefile` that has commands to build and run the containers. 
+Each model (e.g randomForest) dir also consists of a  `Makefile` that has commands to build and run the containers.
 
 User needs to sepcify:
 
@@ -151,7 +166,7 @@ PREDICT_FUNCTION=predict_adult_income_rf
 `serviceroute:predict-module-name:predict-function-name`
 2. TRAIN_MODULE: defines python module in which train function is defined
 3. TRAIN_FUNCTION: train function name
-4.  PREDICT MODULE AND PREDICT FUNCTION: same as train but for predict. 
+4.  PREDICT MODULE AND PREDICT FUNCTION: same as train but for predict.
 
 > in case of using daemon s2i builder we only need to specify ROUTES.
 PREDICT_MODULE && PREDICT FUNCTION are optional when using `s2i` daemon builder image. Though we  provide it in all our examples for readability
@@ -190,7 +205,3 @@ Here user needs to specify:
 `make predict-all`: starts the predict container with all the models loaded and serves them as web service routes
 
 `make test-all`:  invokes the predict for each of the models against the predict-all container using test defined in each model
-
-
-
-

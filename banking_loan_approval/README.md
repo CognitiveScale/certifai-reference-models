@@ -1,7 +1,27 @@
 
 # Banking: Loan Approval(German Credit)
 
-  In this use case, each entry in the [dataset](#Datasets) represents a person who takes a credit loan from a bank. Learning task is to classify each person as either a good or bad credit risk based on the set of attributes of that person. Model predicts whether loan will be _granted_ or _not-granted_ based on the credit risk evaluation. This dataset was sourced from [Kaggle](https://www.kaggle.com/uciml/german-credit). Originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data))
+## <b>Banking: Loan Approval</b>
+
+**Learning Task Type**: Binary Classification
+
+**Description**: Each dataset row represents the attribute values of a loan application. The models predict whether a loan will be granted or denied.
+
+**Dataset Source**: [Kaggle](https://www.kaggle.com/uciml/german-credit) - Originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data)
+
+**Pre-trained Models**:
+
+  - SVM
+  - Logistic Regression
+  - Decision Tree
+  - Multi-layered Perception
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
 
 
 ## Prerequisites  
@@ -11,7 +31,7 @@
 
 ## Quick Start
 1. ### Model train (e.g. decisionTree)
-	1. `cd decisionTree` 
+	1. `cd decisionTree`
 	2. build train-container `make build-train`
 	3. run train-container `make train`
 2.	### Model Predict

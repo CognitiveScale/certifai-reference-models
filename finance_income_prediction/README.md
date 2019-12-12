@@ -1,8 +1,24 @@
 
-# Adult Income Prediction Model
+# Finance: Income Prediction 
 
-In this use case, each entry in the dataset represents attributes of a de-identified individual. The learning task is predicting the income bracket which has two possible values ">50K" and "<=50K" .
-This dataset was sourced from [UCI](https://archive.ics.uci.edu/ml/datasets/census+income)
+**Learning Task Type**: Binary Classification
+
+**Description**: Each dataset row represents the attribute values for de-identified individual. The models predict the income tax bracket of the person as `<=50K` or `>=50 K`.
+
+**Dataset Source**: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/census+income)
+
+**Pre-trained Models**:
+
+  - SVM
+  - Random Forest
+  - XGBoost
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
 
 
 ## Prerequisites  
@@ -12,7 +28,7 @@ This dataset was sourced from [UCI](https://archive.ics.uci.edu/ml/datasets/cens
 
 ## Quick Start
 1. ### Model train (e.g. logisticRegression)
-	1. `cd logisticRegression` 
+	1. `cd logisticRegression`
 	2. build train-container `make build-train`
 	3. run train-container `make train`
 2.	### Model Predict
@@ -29,4 +45,4 @@ This dataset was sourced from [UCI](https://archive.ics.uci.edu/ml/datasets/cens
 
 1.	`cd all`
 2.	to train all models `make train-all`
-3.	to predict all models `make predict-all` 
+3.	to predict all models `make predict-all`

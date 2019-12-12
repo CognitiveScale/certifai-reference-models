@@ -1,7 +1,25 @@
-
 # Insurance: Auto Insurance Claims(auto insurance)
 
- In this use case, each entry in the dataset represents an auto insurance claim. Learning task is to predict the final settled claim amount. This dataset was sourced from [Emcien](https://www.sixtusdakurah.com/resources/The_Application_of_Regularization_in_Modelling_Insurance_Claims.pdf)
+**Learning Task Type**: Regression
+
+**Description**: Each dataset row represents the attribute values for an auto insurance claim. The models predict the final claim settlement amount.
+
+**Dataset Source**: [Emcien](https://www.sixtusdakurah.com/resources/The_Application_of_Regularization_in_Modelling_Insurance_Claims.pdf)
+
+**Pre-trained Models**:
+
+  - L1 Linear Regression
+  - L2 Linear Regression
+  - Neural Network
+  - Random Forest Regressor
+  - SVR
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
 
 ## Prerequisites  
 1. [Source-to-Image](https://github.com/openshift/source-to-image)
@@ -10,7 +28,7 @@
 
 ## Quick Start
 1. ### Model train (e.g. linearRegressionL1)
-	1. `cd linearRegressionL1` 
+	1. `cd linearRegressionL1`
 	2. build train-container `make build-train`
 	3. run train-container `make train`
 2.	### Model Predict
@@ -27,4 +45,4 @@
 
 1.	`cd all`
 2.	to train all models `make train-all`
-3.	to predict all models `make predict-all` 
+3.	to predict all models `make predict-all`
