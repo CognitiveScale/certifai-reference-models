@@ -36,13 +36,13 @@ if [ $jobtype == "train" ]; then
     cat ${modeldir}/requirements_train.txt > build-context/requirements.txt
     rm build-context/${projectname}/requirements_train.txt build-context/${projectname}/requirements_predict.txt
     # s2i builds
-    s2i build -c build-context c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT ${target}
+    s2i build -c build-context c12e/cortex-s2i-model-python36-slim:1.0.0 ${target}
 
 elif [ $jobtype == "predict" ]; then
     echo "starting predict job"
     cat ${modeldir}/requirements_predict.txt > build-context/requirements.txt
     rm build-context/${projectname}/requirements_train.txt build-context/${projectname}/requirements_predict.txt
-    s2i build -c build-context c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${target}
+    s2i build -c build-context c12e/cortex-s2i-daemon-python36-slim:1.0.0 ${target}
 
 else
     echo ERROR: Invalid job-type argument to "./build.sh <target> <modeldir> <job-type(train/predict)>" 1>&2

@@ -12,7 +12,7 @@ To add models to available projects:
 
 4. Install additional native dependencies with a `setup.sh` script present at the root-level in the model directory.
 
-  `setup.sh` is executed before installing other code dependencies defined in the `requirements.txt` file.
+   **NOTE**: `setup.sh` is executed before installing other code dependencies defined in the `requirements.txt` file.
 
 5. Train & predict configurations (service routes) are handled using an .s2i/environment file. To create service routes configurations, add an `.s2i/environment` file at the root level of your model directory. Structure the `.s2i/environment` file as follows:
 
@@ -105,7 +105,6 @@ curl -X POST \
 ```
 {"payload":{"predictions":[1]}}
 ```
-
 
 
 ## Code Organization Example
