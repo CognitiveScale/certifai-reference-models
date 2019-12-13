@@ -25,10 +25,10 @@ To add models to available projects:
 7. Build the training container using the s2i (source-to-image) with a base container with minimal dependencies (e.g. python3). Refer to [s2i-docs](https://github.com/openshift/source-to-image]) for more information.
 
  ```
- s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT <TRAIN_CONTAINER_NAME>
+ s2i build -c . c12e/cortex-s2i-model-python36-slim:1.0.0 <TRAIN_CONTAINER_NAME>
  ```
 
-  The base image as discussed above is `c12e/cortex-s2i-model-python36-slim:1.0-SNAPSHOT`.
+  The base image as discussed above is `c12e/cortex-s2i-model-python36-slim:1.0.0`.
 
 8. Run the training container using volume mount (-v) to persist files (model_binaries, data etc.) on disk.
 
@@ -39,7 +39,7 @@ To add models to available projects:
 9. Build the predict container.
 
   ```
-  s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0-SNAPSHOT ${PREDICT_CONTAINER_NAME}
+  s2i build -c . c12e/cortex-s2i-daemon-python36-slim:1.0.0 ${PREDICT_CONTAINER_NAME}
   ```
 
 10. Run the predict container.
