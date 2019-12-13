@@ -1,154 +1,151 @@
 
-<center> <h1>Cortex Certifai Sandbox Case-Studies </h1> </center>
+<center> <h1>Cortex Certifai Trial Use Cases </h1> </center>
 
-Section below contains details of Certifai Evaluation components that are common across each evaluation [use case / project]
+The Cortex Certifai Trial contains the following project use cases with pre-trained models, and preconfigured datasets and evaluations, so you can explore the evaluation visualizations that Certifai generates.
 
-   > _[Glossary of common terms](#Glossary)_
+For additional information about the Certifai evaluations, how to use Certifai, and a glossary of Certifai terms please visit the [Cortex Certifai Training website](https://info.cognitivescale.com/cortex-certifai-training).
 
-###  <a id="Models">**Models**</a>
+---
 
-This tab includes:
- - List of ML Models that are to evaluated using Cortex Certifai
+## <b>Banking: Loan Approval</b>
 
-### <a id="Datasets"> **Evaluation Dataset**</a> 
-   This tab includes:
- - an `Evaluation Dataset` of **X** no. of instances, used to assess global properties such as model robustness and fairness
- - **X** `Rows Explanations Dataset` containing **X** no. of <a id="Observations">instances</a> for which counterfactual (CF) explanations are desired
+**Learning Task Type**: Binary Classification
 
-### <a id="Evaluations">**Evaluations**</a>
-This tab shows the following evaluation results:
-- `Robustness`: Robustness is compared across all the pre-built models. 
-  > _Higher means more robust_
-- `Fairness`: For Fairness, first the desired outcome along with the grouping feature needs to be specified. Panel on the left shows the fairness scores (_Higher is fairer_) for all the pre-built models. Panel on the Right compares the burden across the sub-groups specified by the grouping feature
-   > _similar bar lengths indicate fairer models_
-  
-- `Explanations`: Here one can specify the model (e.g. SVM) and the [observation (#)](#Observations), and then the CF explanation is displayed by highlighting the fields that change. 
+**Description**: Each dataset row represents the attribute values of a loan application. The models predict whether a loan will be granted or denied.
 
---- 
+**Dataset Source**: [Kaggle](https://www.kaggle.com/uciml/german-credit) - Originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data)
 
-## Use Cases Around Binary Classification 
+**Pre-trained Models**:
 
-
-### <b>Banking: Loan Approval</b>
-
-  - In this use case, each entry in the [dataset](#Datasets) represents a person who takes a credit loan from a bank
-  - Learning task is to classify each person as either a good or bad credit risk based on the set of attributes of that person. 
-  - Model predicts whether loan will be _granted_ or _not-granted_ based on the credit risk evaluation
-  - This dataset was sourced from [Kaggle](https://www.kaggle.com/uciml/german-credit). Originally from the [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Statlog+(German+Credit+Data))
-
-  This use-case comes with 4 pre-trained [models](#Models), based respectively on 
   - SVM
   - Logistic Regression
   - Decision Tree
-  - Multi-Layered Perceptron. 
-  
-  [Evaluations](#Evaluations):
-   - Robustness
-   - Fairness 
-   - Explanations
+  - Multi-layered Perception
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
+
 ---
 
-### <b>HealthCare: Disease Prediction</b>
+## <b>HealthCare: Disease Prediction</b>
 
--  In this use case, each entry in the dataset represents a patient
--  Learning task is to predict whether or not a patient has diabetes, based on certain diagnostic measurements included in the dataset
-- Several constraints were placed on the selection of these instances from a larger database
-- In particular, all patients here are females at least 21 years old of Pima Indian heritage
-- This dataset was sourced from [Kaggle](https://www.kaggle.com/uciml/pima-indians-diabetes-database ). Originally from the [National Institute of Diabetes and Digestive and Kidney Diseases](https://www.niddk.nih.gov/)
+**Learning Task Type**: Binary Classification
 
-This use-case comes with 4 pre-trained models, based respectively on 
+**Description**: Each dataset row represents the attribute values for a patient. The models predict whether or not a patient has diabetes or not.
+
+**Dataset Source**: [Kaggle](https://www.kaggle.com/uciml/pima-indians-diabetes-database) - Originally from the [National Institute of Diabetes and Digestive and Kidney Diseases](https://www.niddk.nih.gov/)
+
+  **NOTE**: all patients here are females at least 21 years old of Pima Indian heritage
+
+**Pre-trained Models**:
+
   - SVM
   - Logistic Regression
   - Decision Tree
-  - Multi-Layered Perceptron. 
+  - Multi-layered Perception
 
-   [Evaluations](#Evaluations):
-   - Robustness
-   - Explanations 
+**Evaluation Types**:
+
+  - Robustness
+  - Explainability
+  - Explanations
+
 ---
 
-### <b>Banking: Propensity to Buy</b>
+## <b>Banking: Propensity to Buy</b>
 
--  In this use case, each entry in the dataset represents a target of a previous marketing campaign
--  Learning task is to predict who will make a term deposit with the bank as a result of a similar campaign
-- This dataset was sourced from [Kaggle](https://www.kaggle.com/janiobachmann/bank-marketing-dataset). Originally from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
+**Learning Task Type**: Binary Classification
 
-This use-case comes with 4 pre-trained models, based respectively on 
+**Description**: Each dataset row represents the attribute values for a customer or previous customer of the bank. The models predict whether or not the customer will close their accounts or remain a customer.  
+
+**Dataset Source**: [Kaggle](https://www.kaggle.com/janiobachmann/bank-marketing-dataset) - Originally from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
+
+**Pre-trained Models**:
+
   - SVM
   - Logistic Regression
   - Decision Tree
-  - Multi-Layered Perceptron. 
+  - Multi-layered Perception
 
-   [Evaluations](#Evaluations):
-   - Robustness
-   - Fairness 
-   - Explanations 
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
+
 ---
 
-### <b>Banking: Predicting Customer Churn</b>
+## <b>Banking: Predicting Customer Churn</b>
 
--  In this use case, each entry in the dataset represents a customer or previous customer of the bank
--  Learning task is to predict who is likely to quit as a customer
-- This dataset was sourced from [Kaggle](https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers)
+**Learning Task Type**: Binary Classification
 
-This use-case comes with 4 pre-trained models, based respectively on 
+**Description**: Each dataset row represents the attribute values for the target of a previous marketing campaign. The models predict whether a similar campaign will result in the target making a deposit at the bank.
+
+**Dataset Source**: [Kaggle](https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers)
+
+**Pre-trained Models**:
+
   - SVM
   - Random Forest
   - Gradient Boosting
-  - Multi-Layered Perceptron. 
+  - Multi-layered Perception
 
-   [Evaluations](#Evaluations):
-   - Robustness
-   - Fairness 
-   - Explanations 
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
+
 ---
 
-### <b>Finance: Income Prediction</b>
+## <b>Finance: Income Prediction</b>
 
--  In this use case, each entry in the dataset represents attributes of a de-identified individual
--  Learning task is to predict the income bracket of the individual, which has two possible values `>50K` and `<=50K`
-- This dataset was sourced from [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/census+income)
+**Learning Task Type**: Binary Classification
 
-This use-case comes with 3 pre-trained models, based respectively on 
-  - Logistic Regression
+**Description**: Each dataset row represents the attribute values for de-identified individual. The models predict the income tax bracket of the person as `<=50K` or `>=50 K`.
+
+**Dataset Source**: [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/census+income)
+
+**Pre-trained Models**:
+
+  - SVM
   - Random Forest
   - XGBoost
 
-   [Evaluations](#Evaluations):
-   - Robustness
-   - Fairness 
-   - Explanations 
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
+
 ---
 
-## Use Cases Around Predicting a Numeric Value (Regression/Function approximation) 
+## <b>Insurance: Auto Insurance Claims</b>
 
+**Learning Task Type**: Regression
 
-### <b>Insurance: Auto Insurance Claims</b>
+**Description**: Each dataset row represents the attribute values for an auto insurance claim. The models predict the final claim settlement amount.
 
--  In this use case, each entry in the dataset represents an auto insurance claim
--  Learning task is to predict the final settled claim amount
-- This dataset was sourced from [Emcien](https://www.sixtusdakurah.com/resources/The_Application_of_Regularization_in_Modelling_Insurance_Claims.pdf)
+**Dataset Source**: [Emcien](https://www.sixtusdakurah.com/resources/The_Application_of_Regularization_in_Modelling_Insurance_Claims.pdf)
 
-This use-case comes with 5 pre-trained models, based respectively on 
+**Pre-trained Models**:
+
   - L1 Linear Regression
   - L2 Linear Regression
   - Neural Network
   - Random Forest Regressor
   - SVR
 
-   [Evaluations](#Evaluations):
-   - Robustness
-   - Fairness 
-   - Explanations 
----
+**Evaluation Types**:
 
-
-#### <a id="Glossary"></a><i>Commonly Referenced Terms ###
-
-| Terms  | Meaning |
-| ------ | ------ |
-| Models |  Machine Learning models that are to be evaluated using Certifai|
-| Counterfactual | Alternative suggested feature values that would result in change of outcome |
-| Robustness |  Measure of how well models maintain an outcome given small changes to the data feature values. The more robust a model is, the greater the changes required to alter the outcome |
-| Fairness | Measure of amount of change required to alter the outcome for the different groups defined by the specified feature given the same model and dataset |
-| Explanations | Comparison of the dataset features, original and counterfactual values for the change that must occur in a dataset with given restrictions to obtain a different outcome  |
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations

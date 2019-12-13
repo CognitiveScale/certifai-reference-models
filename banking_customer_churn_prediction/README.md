@@ -1,8 +1,24 @@
-
 # Banking: Predicting Customer Churn
 
-In this use case, each entry in the dataset represents a customer or previous customer of the bank. Learning task is to predict who is likely to quit as a customer. This dataset was sourced from [Kaggle](https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers
+**Learning Task Type**: Binary Classification
 
+**Description**: Each dataset row represents the attribute values for the target of a previous marketing campaign. The models predict whether a similar campaign will result in the target making a deposit at the bank.
+
+**Dataset Source**: [Kaggle](https://www.kaggle.com/adammaus/predicting-churn-for-bank-customers)
+
+**Pre-trained Models**:
+
+  - SVM
+  - Random Forest
+  - Gradient Boosting
+  - Multi-layered Perception
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
 
 ## Prerequisites  
 1. [Source-to-Image](https://github.com/openshift/source-to-image)
@@ -11,7 +27,7 @@ In this use case, each entry in the dataset represents a customer or previous cu
 
 ## Quick Start
 1. ### Model train (e.g. gradientBoosting)
-	1. `cd gradientBoosting` 
+	1. `cd gradientBoosting`
 	2. build train-container `make build-train`
 	3. run train-container `make train`
 2.	### Model Predict
@@ -28,4 +44,4 @@ In this use case, each entry in the dataset represents a customer or previous cu
 
 1.	`cd all`
 2.	to train all models `make train-all`
-3.	to predict all models `make predict-all` 
+3.	to predict all models `make predict-all`
