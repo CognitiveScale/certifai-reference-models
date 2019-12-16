@@ -61,11 +61,30 @@ curl -X POST \
 ```
 `route` is defined using .s2i/environment file
 
-It returns an array of predictions.
+It returns an array of predictions and/or scores, with predicted values for each input row in the same order.  Optionally
+classification models (not relevant for regression models) may also soft scores for each row, in one of two
+forms encoded via the optional fields `scores` and `threshold`.   Both `predictions` and `scores` are optional, but at
+ least one must be present.  The two forms are as follows:
+* For binary classification (only) the `scores` array may be a simple list of scores for the positive class, and
+the `threshold` is the value at which the score causes the prediction to be considered positive (if omitted 0.5 is
+assumed)
 ```
 {
    "payload": {
-     "predictions": [1]
+     "predictions": [1],
+     "scores": [0.7],
+     "threshold": 0.5
+   }
+}
+```
+* For general classification (binary or multi-class) the `scores` array may be an array (one per input row) of
+arrays (one per class label) of scores, wherein it is assumed that the predicted label is the one with the highest score.
+`theshold` is ignored in this case
+```
+{
+   "payload": {
+     "predictions": [3],
+     "scores": [[0.2, 0.2, 0.2, 0.4]]
    }
 }
 ```
