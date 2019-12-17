@@ -50,7 +50,7 @@ To add models to available projects:
 
 ## Model Predict: Request/Response
 
-The predict endpoint takes an array of instances containing an array of feature values.
+Predict endpoint takes either an array of instances or a single instance, containing an array of feature values.
 ```
 curl -X POST \
  http://localhost:5111/<route> \
@@ -62,6 +62,9 @@ curl -X POST \
 `route` is defined using .s2i/environment file
 
 It returns an array of predictions.
+
+**Note** returned predictions are in the same order as instances provided
+
 ```
 {
    "payload": {
@@ -80,7 +83,7 @@ curl -X POST \
   -H 'Content-Type: application/json' \
   -d '{
       "payload": {
-		"instances": [
+		"instances": [[
 			"age_25_or_above",
 			"job_admin.",
 			"marital_married",
@@ -96,7 +99,7 @@ curl -X POST \
 			-1,
 			0,
 			"poutcome_unknown"
-		]
+		]]
       }
 }'
 ```
