@@ -5,6 +5,7 @@ import os
 ROOT_DIR = "../"
 RANDOM_SEED = 0
 TEST_SIZE = 0.3
+EXPLANATION_MAX_SIZE = 100
 
 IGNORE_PREVIOUS_SPLITS = ["train.csv", "test.csv", "eval.csv", "expln.csv"]
 IGNORE_AD_HOC = ["decoded.csv"]
@@ -34,8 +35,9 @@ def split_dataset():
         )
         # evaluation dataset for certifai is assumed to be  union of train and test dataset(i.e original df)
         # explanation dataset for certifai is assumed to be test dataset
+
         write_to_csv(
-            [(train, train_ds), (test, test_ds), (df, eval_ds), (test, expln_ds)]
+            [(train, train_ds), (test, test_ds), (df, eval_ds), (test.sample(n=EXPLANATION_MAX_SIZE, random_state=RANDOM_SEED), expln_ds)]
         )
 
 
