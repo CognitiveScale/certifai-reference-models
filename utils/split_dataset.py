@@ -34,7 +34,7 @@ def split_dataset():
             map(lambda x: ("-" + x), IGNORE_PREVIOUS_SPLITS),
         )
         # evaluation dataset for certifai is assumed to be  union of train and test dataset(i.e original df)
-        # explanation dataset for certifai is assumed to be test dataset
+        # explanation dataset for certifai is sampled from test dataset (maxsize=100)
 
         write_to_csv(
             [(train, train_ds), (test, test_ds), (df, eval_ds), (test.sample(n=EXPLANATION_MAX_SIZE, random_state=RANDOM_SEED), expln_ds)]
