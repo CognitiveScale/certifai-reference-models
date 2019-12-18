@@ -32,6 +32,7 @@ def train(msg):
     scaler.fit(X)
 
     # apply encoding to train and test data features
+    # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
     y_train = y_train_df
 
