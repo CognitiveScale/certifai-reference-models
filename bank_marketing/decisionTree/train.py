@@ -2,12 +2,19 @@ import random
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 import pandas as pd
+import numpy as np
 import sys
 from bank_marketing.common_utils.train_utils import Encoder
 from utils.encode_decode import pickle_model
 
+RANDOM_SEED = 0
+
 
 def train(msg):
+    # for reproducible training
+    random.seed(RANDOM_SEED)
+    np.random.seed(RANDOM_SEED)
+
     training_data_uri = msg.payload.get("$ref", "./data/bank_marketing-prepped.csv")
     save_model_as = msg.payload.get("model_name")
 
@@ -39,8 +46,8 @@ def train(msg):
     X_test = scaler.transform(X_test_df)
     y_test = y_test_df
 
-    # start model training
-    dtree = DecisionTreeClassifier(criterion="entropy", random_state=0)
+    # start model trainings
+    dtree = DecisionTreeClassifier(criterion="entropy", random_state=RANDOM_SEED)
     dtree.fit(X_train.values, y_train.values)
 
     dtree_acc = dtree.score(X_test.values, y_test.values)
