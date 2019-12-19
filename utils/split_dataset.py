@@ -8,7 +8,7 @@ TEST_SIZE = 0.3
 EXPLANATION_MAX_SIZE = 100
 
 IGNORE_PREVIOUS_SPLITS = ["train.csv", "test.csv", "eval.csv", "expln.csv"]
-IGNORE_AD_HOC = ["decoded.csv"]
+IGNORE_AD_HOC = ["german_credit.csv"]
 IGNORE_ENDSWITH = IGNORE_PREVIOUS_SPLITS + IGNORE_AD_HOC
 
 
