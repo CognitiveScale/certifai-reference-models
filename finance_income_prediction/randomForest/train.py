@@ -1,6 +1,4 @@
 import random
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 import pandas as pd
 import numpy as np
@@ -8,36 +6,50 @@ from sklearn.ensemble import RandomForestClassifier
 from finance_income_prediction.common_utils.train_utils import Encoder
 from utils.encode_decode import pickle_model
 
+RANDOM_SEED = 0
+
 
 def train(msg):
-    random.seed(0)
-    np.random.seed(0)
-    training_data_uri = msg.payload.get("$ref", "./data/adult_income-prepped.csv")
-    save_model_as = msg.payload.get('model_name')
-    df = pd.read_csv(training_data_uri)
+    # for reproducible training
+    random.seed(RANDOM_SEED)
+    np.random.seed(RANDOM_SEED)
 
-    feature_names = list(df.columns[:-1])
+    training_data_uri = msg.payload.get("$ref", "./data/adult_income-prepped.csv")
+    save_model_as = msg.payload.get("model_name")
+
+    data = pd.read_csv(training_data_uri)
+    train_dataset = training_data_uri.replace(".csv", "-train.csv")
+    test_dataset = training_data_uri.replace(".csv", "-test.csv")
+    train_data = pd.read_csv(train_dataset)
+    test_data = pd.read_csv(test_dataset)
 
     # Separate outcome
-    y = df["income"]
-    X = df.drop("income", axis=1)
+    y = data["income"]
+    X = data.drop("income", axis=1)
 
-    # apply encoding to dataset
+    y_train_df = train_data["income"]
+    X_train_df = train_data.drop("income", axis=1)
+
+    y_test_df = test_data["income"]
+    X_test_df = test_data.drop("income", axis=1)
+
+    # create encoder on entire dataset
     scaler = Encoder(X)
     scaler.fit(X)
 
-    X_onehot = scaler.transform(X)
+    # apply encoding to train and test data features
+    # applied on test data to calculate accuracy metric
+    X_train = scaler.transform(X_train_df)
+    y_train = y_train_df
 
-    # split test and training
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_onehot, y, test_size=0.25, random_state=4
-    )
+    X_test = scaler.transform(X_test_df)
+    y_test = y_test_df
 
     # start model training
-    rf = RandomForestClassifier()
+    rf = RandomForestClassifier(random_state=RANDOM_SEED)
     rf.fit(X_train, y_train)
     rf_acc = rf.score(X_test, y_test)
-    model_binary = f'models/{save_model_as}.pkl'
+    model_binary = f"models/{save_model_as}.pkl"
     pickle_model(rf, scaler, "RF", rf_acc, "Random Forest Classifier", model_binary)
     print(rf_acc)
-    return (f'model: {model_binary}')
+    return f"model: {model_binary}"
