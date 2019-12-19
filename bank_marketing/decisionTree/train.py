@@ -31,8 +31,8 @@ def train(msg):
     y_train_df = train_data["deposit"]
     X_train_df = train_data.drop("deposit", axis=1)
 
-    y_test_df = test_dataset["deposit"]
-    X_test_df = test_dataset.drop("deposit", axis=1)
+    y_test_df = test_data["deposit"]
+    X_test_df = test_data.drop("deposit", axis=1)
 
     # create encoder on entire dataset
     scaler = Encoder(X)
