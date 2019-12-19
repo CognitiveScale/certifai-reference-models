@@ -1,38 +1,51 @@
 import random
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Lasso
 from sklearn.metrics import r2_score
 import pandas as pd
+import numpy as np
 from insurance_auto_insurance_claims.common_utils.train_utils import CategoricalEncoder
 from utils.encode_decode import pickle_model
 
+RANDOM_SEED = 0
+
 
 def train(msg):
-    random.seed(0)
+    # for reproducible training
+    random.seed(RANDOM_SEED)
+    np.random.seed(RANDOM_SEED)
+
     training_data_uri = msg.payload.get(
         "$ref", "./data/auto_insurance_claims_dataset.csv"
     )
     save_model_as = msg.payload.get("model_name")
+
     data = pd.read_csv(training_data_uri)
+    train_dataset = training_data_uri.replace(".csv", "-train.csv")
+    test_dataset = training_data_uri.replace(".csv", "-test.csv")
+    train_data = pd.read_csv(train_dataset)
+    test_data = pd.read_csv(test_dataset)
 
-    # Getting feature names
-    feature_names = list(data.columns)
-    feature_names.remove("Total Claim Amount")
+    # Separate outcome
+    y = data["Total Claim Amount"]
+    X = data.drop("Total Claim Amount", axis=1)
 
-    # Train-test split
-    X = data.copy()
-    y = X["Total Claim Amount"]
-    X_tr, X_tst, y_tr, y_tst = train_test_split(X, y, test_size=1000, random_state=0)
+    y_train_df = train_data["Total Claim Amount"]
+    X_train_df = train_data.drop("Total Claim Amount", axis=1)
 
-    # Tranforming train and test data
+    y_test_df = test_data["Total Claim Amount"]
+    X_test_df = test_data.drop("Total Claim Amount", axis=1)
+
+    # create encoder on entire dataset
     scaler = CategoricalEncoder()
-    scaler.fit(X_tr)
-    X_train = scaler.transform(X_tr.drop(["Total Claim Amount"], axis=1))
-    y_train = X_tr["Total Claim Amount"]
+    scaler.fit(X)
 
-    X_test = scaler.transform(X_tst.drop(["Total Claim Amount"], axis=1))
-    y_test = X_tst["Total Claim Amount"]
+    # apply encoding to train and test data features
+    # applied on test data to calculate accuracy metric
+    X_train = scaler.transform(X_train_df)
+    y_train = y_train_df
+
+    X_test = scaler.transform(X_test_df)
+    y_test = y_test_df
 
     # start model training
     lmodel_l1 = Lasso(
@@ -43,7 +56,7 @@ def train(msg):
         normalize=False,
         positive=False,
         precompute=False,
-        random_state=None,
+        random_state=RANDOM_SEED,
         selection="cyclic",
         tol=0.0001,
         warm_start=False,
