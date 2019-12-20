@@ -189,7 +189,7 @@ Regular users can use the default setup that comes with `build.sh`.
 
 Each model dir (e.g randomForest) also contains a  `Makefile` that has commands to build and run the containers.
 
-When the makefile is called you must specify:
+The makefile specifies:
 
 1. `MODEL_NAME`: the model binary will be saved with this name (e.g. `adult_income_rf` saves the model as `adult_income_rf.pkl` in the models dir)
 
@@ -238,7 +238,7 @@ NOTE: In the case of using the daemon s2i builder you only need to specify `ROUT
 
 ## All
 
-Models can be trained and packaged together, exposing predict for an entire project or use case as one single container with multiple routes for each of those models.(exemplified with the three models here)
+Models can be trained and packaged together, exposing predict for an entire project/use case as one single container with multiple routes for each of those models.
 
 **NOTE**: `all` creates a new predict container with all routes in exactly the same way individual models are created. Hence it needs the same files, some of which can be auto generated, like in .s2i/environment.
 
@@ -253,9 +253,9 @@ The `.s2i/environment` is auto-generated from individual model's `.s2i/environme
 **EXAMPLE:**
 The user must specify:
 
-- `MODEL_DIRS` = xgBoost logisticRegression randomForest
+- `MODEL_DIRS`: xgBoost logisticRegression randomForest
     for the model dirs to include in the container
-- `CONTAINER_NAME` = name of the predict container containing all routes
+- `CONTAINER_NAME`: name of the predict container containing all routes
 
 `make train-all`: trains all models defined in model dirs
 
