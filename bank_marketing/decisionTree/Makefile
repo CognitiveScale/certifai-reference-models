@@ -25,3 +25,7 @@ predict:
 test-endpoint:
 	# endpoint from .s2i/environment ROUTES	 
 	time http -v -j POST :5111/bank_marketing_dtree/predict < test/test_instances.json
+
+train-local:
+	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/train.py '{"payload": $(shell sed -e 's/^"//' -e 's/"$$//' <<< ${PAYLOAD})}'
+
