@@ -1,3 +1,6 @@
+from cortex import Cortex, Message
+import json
+import sys
 import random
 from sklearn.ensemble import GradientBoostingClassifier
 import pandas as pd
@@ -57,3 +60,5 @@ def train(msg):
     print(gb_acc)
     return f"model: {model_binary}"
 
+if __name__ == "__main__":
+    print(train(Message(json.loads(sys.argv[1]))))
