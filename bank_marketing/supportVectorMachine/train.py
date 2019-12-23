@@ -1,10 +1,8 @@
-from cortex import Cortex, Message
-import json
-import sys
 import random
 from sklearn import svm
 import pandas as pd
 import numpy as np
+import sys
 from utils.encode_decode import pickle_model
 from bank_marketing.common_utils.train_utils import Encoder
 
@@ -56,5 +54,3 @@ def train(msg):
     print(svm_acc)
     return f"model: {model_binary}"
 
-if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))

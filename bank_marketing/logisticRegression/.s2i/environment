@@ -1,3 +1,5 @@
-ROUTES=bank_marketing_logit/predict:bank_marketing.logisticRegression.predict:predict_bank_marketing_logit
-TRAIN_MODULE=bank_marketing.logisticRegression.train
+ROUTES=bank_marketing_logit/predict:bank_marketing.predict:predict_bank_marketing_logit
+TRAIN_MODULE=bank_marketing.train
 TRAIN_FUNCTION=train
+PREDICT_MODULE=bank_marketing.predict
+PREDICT_FUNCTION=predict_bank_marketing_logit

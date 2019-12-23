@@ -1,6 +1,3 @@
-from cortex import Cortex, Message
-import json
-import sys
 import random
 from sklearn.neural_network import MLPClassifier
 import pandas as pd
@@ -57,5 +54,3 @@ def train(msg):
     print(mlp_acc)
     return f"model: {model_binary}"
 
-if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))

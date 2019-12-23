@@ -10,7 +10,6 @@ CONTAINER_NAME = 'c12e/model-server'
 setup-build-space:
 	mkdir -p ${PROJECT_ROOT_DIR}/models
 	rm -rf ${PROJECT_ROOT_DIR}/models/*
-	mkdir -p .s2i/
 
 train-projects-all:
 	@for dir in $(MODEL_DIRS) ; do \
@@ -29,13 +28,13 @@ predict-projects-all: create-routes-all
 	docker run --rm -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
 
 create-routes-all: setup-build-space
-	@echo  "ROUTES=" | tr -d "\n" > .s2i/env
+	echo  "ROUTES=" | tr -d "\n" > .s2i/env
 	@for dir in $(MODEL_DIRS) ; do \
 		cd ${PROJECT_ROOT_DIR}$$dir && cp -r models/*  ${PROJECT_ROOT_DIR}/models/ ; \
 		cd all/ && make create-routes ; \
 		cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//' | sed -e 's/$$/,/' | tr -d '\n' >> ${CURRENT_DIR}/.s2i/env  ; \
 	done
-	@(cat .s2i/env | sed 's/.$$//') | tee .s2i/environment
+	(cat .s2i/env | sed 's/.$$//' ; echo "PREDICT_MODULE=predict") | tee .s2i/environment
 	rm -f .s2i/env
 
 test-all-endpoints:
@@ -45,20 +44,6 @@ test-all-endpoints:
 		sleep .5 ; \
 	done
 
+
 run-model-server:
 	docker run --rm -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
-
-train-projects-all-local:
-	@for dir in $(MODEL_DIRS) ; do \
-		echo "Building "$$dir ; \
-		cd ${PROJECT_ROOT_DIR}$$dir/all && make train-all-local ; \
-	done
-
-predict-projects-all-local: help-local create-routes-all
-	cd ../ && PYTHONPATH=. python ${PROJECT_ROOT_DIR}/utils/local_server.py $(shell cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//')
-
-help-local:
-	@echo "make sure all dependencies are installed locally."
-	@echo "all deps can be found at certifai-reference-models/all/requirements_local.txt"
-	@echo "to install deps from file requirements_local.txt run "
-	@echo "pip install -r requirements_local.txt"

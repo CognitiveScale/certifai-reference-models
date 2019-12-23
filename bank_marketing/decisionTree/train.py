@@ -1,5 +1,3 @@
-from cortex import Cortex, Message
-import json
 import random
 from sklearn.tree import DecisionTreeClassifier
 import pandas as pd
@@ -63,8 +61,4 @@ def train(msg):
     )
     print(dtree_acc)
     return f"model: {model_binary}"
-
-
-if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))
 

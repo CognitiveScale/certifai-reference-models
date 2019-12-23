@@ -1,6 +1,3 @@
-from cortex import Cortex, Message
-import json
-import sys
 import random
 from sklearn.metrics import accuracy_score
 import pandas as pd
@@ -56,7 +53,3 @@ def train(msg):
     pickle_model(rf, scaler, "RF", rf_acc, "Random Forest Classifier", model_binary)
     print(rf_acc)
     return f"model: {model_binary}"
-
-
-if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))

@@ -1,6 +1,3 @@
-from cortex import Cortex, Message
-import json
-import sys
 import random
 import pandas as pd
 import numpy as np
@@ -47,7 +44,7 @@ def train(msg):
 
     X_test = scaler.transform(X_test_df)
     y_test = y_test_df
-
+    
     # start model training
     mlp = MLPClassifier(
         hidden_layer_sizes=(20, 20), max_iter=1000, random_state=RANDOM_SEED
@@ -60,6 +57,3 @@ def train(msg):
     print(mlp_acc)
     return f"model: {model_binary}"
 
-
-if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))

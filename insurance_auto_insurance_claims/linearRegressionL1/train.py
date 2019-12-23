@@ -1,6 +1,3 @@
-from cortex import Cortex, Message
-import json
-import sys
 import random
 from sklearn.linear_model import Lasso
 from sklearn.metrics import r2_score
@@ -82,6 +79,3 @@ def train(msg):
     print(err)
     return f"model: {model_binary}"
 
-
-if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))
