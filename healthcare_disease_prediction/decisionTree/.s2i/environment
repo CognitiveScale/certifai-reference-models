@@ -1,5 +1,3 @@
-ROUTES=diabetes_dtree/predict:healthcare_disease_prediction.predict:predict_diabetes_dtree
-TRAIN_MODULE=healthcare_disease_prediction.train
+ROUTES=diabetes_dtree/predict:healthcare_disease_prediction.decisionTree.predict:predict_diabetes_dtree
+TRAIN_MODULE=healthcare_disease_prediction.decisionTree.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=healthcare_disease_prediction.predict
-PREDICT_FUNCTION=predict_diabetes_dtree

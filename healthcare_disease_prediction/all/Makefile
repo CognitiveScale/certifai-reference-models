@@ -7,6 +7,9 @@ projectname := $(shell basename $(dir $(abspath $(dir pwd))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
 CONTAINER_NAME = 'diabetes-all'
 
+setup-space:
+	@mkdir -p .s2i/
+
 train-all:
 	@for dir in $(MODEL_DIRS) ; do \
 		echo "Building "$$dir ; \
@@ -28,12 +31,12 @@ predict-all: create-routes
 	rm -rf ${PROJECT_ROOT_DIR}/build-context
 	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
 
-create-routes:
+create-routes: setup-space
 	echo  "ROUTES=" | tr -d "\n" > .s2i/env
 	@for dir in $(MODEL_DIRS) ; do \
 		cd ${PROJECT_ROOT_DIR}$$dir && cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//' | sed -e 's/$$/,/' | tr -d '\n' >> ${CURRENT_DIR}/.s2i/env  ; \
 	done
-	(cat .s2i/env | sed 's/.$$//' ; echo "PREDICT_MODULE=predict") | tee .s2i/environment
+	(cat .s2i/env | sed 's/.$$//') | tee .s2i/environment
 	rm -f .s2i/env
 
 test-all:
@@ -41,3 +44,18 @@ test-all:
 		echo "testing ${CONTAINER_NAME} -"$$dir ; \
 		cd ${PROJECT_ROOT_DIR}$$dir && make test-endpoint ; \
 	done
+
+predict-all-local: help-local create-routes
+	cd ../ && PYTHONPATH=.. python ${PROJECT_ROOT_DIR}/../utils/local_server.py $(shell cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//')
+
+train-all-local: help-local
+	@for dir in $(MODEL_DIRS) ; do \
+		echo "training "$$dir locally; \
+		cd ${PROJECT_ROOT_DIR}$$dir && make train-local ; \
+	done
+
+help-local:
+	@echo "make sure all dependencies are installed locally."
+	@echo "all deps can be found at certifai-reference-models/all/requirements_local.txt"
+	@echo "to install deps from file requirements_local.txt run "
+	@echo "pip install -r requirements_local.txt"
