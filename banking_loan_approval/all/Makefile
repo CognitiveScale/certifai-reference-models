@@ -9,6 +9,7 @@ CONTAINER_NAME = 'german-credit-all'
 
 setup-space:
 	@mkdir -p .s2i/
+
 train-all:
 	@for dir in $(MODEL_DIRS) ; do \
 		echo "Building "$$dir ; \
