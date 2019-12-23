@@ -24,3 +24,18 @@ predict:
 test-endpoint:
 	# endpoint from .s2i/environment ROUTES	 
 	time http -v -j POST :5111/customer_churn_rf/predict < test/test_instances.json
+
+train-local: setup_local_space
+	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/train.py '{"payload": $(shell sed -e 's/^"//' -e 's/"$$//' <<< ${PAYLOAD})}'
+
+predict-local:
+	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/predict.py $(shell cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//')
+
+help-local:
+	@echo "make sure all dependencies are installed locally."
+	@echo "all deps can be found at certifai-reference-models/all/requirements_local.txt"
+	@echo "to install deps from file requirements_local.txt run "
+	@echo "pip install -r requirements_local.txt"
+
+setup_local_space:
+	@mkdir -p ../models

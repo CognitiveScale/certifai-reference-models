@@ -2,10 +2,8 @@ from sklearn import preprocessing
 import pandas as pd
 import pickle
 import time
-from sklearn.model_selection import train_test_split
 from sklearn import preprocessing
 import sys
-
 import numpy as np
 
 class CategoricalEncoder:

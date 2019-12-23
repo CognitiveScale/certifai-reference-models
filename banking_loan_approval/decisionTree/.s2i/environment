@@ -1,5 +1,3 @@
-ROUTES=german_credit_dtree/predict:banking_loan_approval.predict:predict_german_credit_dtree
-TRAIN_MODULE=banking_loan_approval.train
+ROUTES=german_credit_dtree/predict:banking_loan_approval.decisionTree.predict:predict_german_credit_dtree
+TRAIN_MODULE=banking_loan_approval.decisionTree.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=banking_loan_approval.predict
-PREDICT_FUNCTION=predict_german_credit_dtree

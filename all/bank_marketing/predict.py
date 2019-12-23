@@ -1,5 +1,0 @@
-from bank_marketing.logisticRegression.predict import predict_bank_marketing_logit
-from bank_marketing.supportVectorMachine.predict import predict_bank_marketing_svm
-from bank_marketing.decisionTree.predict import predict_bank_marketing_dtree
-from bank_marketing.multiLayerPerceptron.predict import predict_bank_marketing_mlp
-
