@@ -1,3 +1,6 @@
+from cortex import Cortex, Message
+import json
+import sys
 import random
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
@@ -66,3 +69,6 @@ def train(msg):
     print(err)
     return f"model: {model_binary}"
 
+
+if __name__ == "__main__":
+    print(train(Message(json.loads(sys.argv[1]))))

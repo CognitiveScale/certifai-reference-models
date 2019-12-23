@@ -1,4 +1,7 @@
 import os
+from cortex import Cortex, Message
+import json
+import sys
 
 RANDOM_SEED = 0
 os.environ["PYTHONHASHSEED"] = str(RANDOM_SEED)
@@ -82,3 +85,6 @@ def train(msg):
     print(err)
     return f"model: {model_binary}"
 
+
+if __name__ == "__main__":
+    print(train(Message(json.loads(sys.argv[1]))))

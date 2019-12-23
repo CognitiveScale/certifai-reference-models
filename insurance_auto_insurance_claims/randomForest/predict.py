@@ -2,8 +2,8 @@ import numpy as np
 import os
 import pickle
 import sys
-
 from utils.encode_decode import init_model
+from utils.local_server import assemble_server
 
 model_name = os.getenv("MODElNAME", "auto_insurance_rf")
 
@@ -30,3 +30,6 @@ def predict(model_ctx, instances):
     predictions = model_obj["model"].predict(instances)
     return {"predictions": predictions.tolist()}
 
+
+if __name__ == "__main__":
+    assemble_server(sys.argv[1])

@@ -1,5 +1,3 @@
-ROUTES=diabetes_svm/predict:healthcare_disease_prediction.predict:predict_diabetes_svm
-TRAIN_MODULE=healthcare_disease_prediction.train
+ROUTES=diabetes_svm/predict:healthcare_disease_prediction.supportVectorMachine.predict:predict_diabetes_svm
+TRAIN_MODULE=healthcare_disease_prediction.supportVectorMachine.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=healthcare_disease_prediction.predict
-PREDICT_FUNCTION=predict_diabetes_svm

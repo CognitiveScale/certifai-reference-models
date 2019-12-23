@@ -1,3 +1,6 @@
+from cortex import Cortex, Message
+import json
+import sys
 import random
 import pandas as pd
 import numpy as np
@@ -59,3 +62,5 @@ def train(msg):
     print(logit_acc)
     return f"model: {model_binary}"
 
+if __name__ == "__main__":
+    print(train(Message(json.loads(sys.argv[1]))))
