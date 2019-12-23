@@ -1,36 +1,35 @@
-## Training and Predicting all Projects/UseCases together
+## Training all Projects/UseCases Simultaneously
 
-### To Train all models together
+### Train all use case models
 
-> make sure each model inside project/usecase works with their corresponding `make train` and generates model_binary (.pkl) in the models directory.
+Before you proceed, ensure the models for each project/use case generates the model_binary (.pkl) in the models directory when you run `make train`.
 
-1. `make train-projects-all`
+To train all models for all projects simultaneously run:
 
-    will train all models for all projects and dump the respective model binaries in the models dir
+`make train-projects-all`
 
-
-## To start the predict server for all models together
-
-> make sure model binaries(.pkl's) are present in models dir and each model inside project/usecase has the corresponding .s2i/environment file with correct ROUTES defined
-
-1. `make predict-projects-all` 
-    
-    will load model binaries in memory for all models and all projects/usecases and start a single model server with the correponding routes defined in .s2i/environment in each model
-    
-
-    ## To test all the endpoints created using make predict-projects-all 
-
-    > make sure model server is running and httpie is installed locally. 
-    
-    > To setup httpie visit
-      [Httpie](https://httpie.org/)
+The output is stored in the respective model binaries in the models dir.
 
 
-1.  `make test-all-endpoints`
+### Start the predict server for all use case models
 
-    will run test against the model server with corresponding inputs defined in `test/test_instances.json` dir inside each model
+Before you proceed, ensure that model binaries(.pkl's) are present in models dir, and each model inside project/use case has the corresponding .s2i/environment file with correct ROUTES defined.
+
+To load model binaries in memory for all project/use case models and start a single model server with the corresponding routes defined in .s2i/environment for each model run:
+
+`make predict-projects-all`
+
+The output is the creation of an endpoint for each model that can be used in Certifai to point to the model.
 
 
+### Test the endpoints
 
+Before you proceed, ensure that the model server is running and httpie is installed locally.
 
+**NOTE**: To setup httpie visit [Httpie](https://httpie.org/)
 
+To test the model server with corresponding inputs defined in `test/test_instances.json` dir inside each model run:
+
+`make test-all-endpoints`
+
+<The output is . . .>
