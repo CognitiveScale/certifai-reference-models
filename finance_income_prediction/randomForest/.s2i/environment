@@ -1,5 +1,3 @@
-ROUTES=adult_income_rf/predict:finance_income_prediction.predict:predict_adult_income_rf
-TRAIN_MODULE=finance_income_prediction.train
+ROUTES=adult_income_rf/predict:finance_income_prediction.randomForest.predict:predict_adult_income_rf
+TRAIN_MODULE=finance_income_prediction.randomForest.train
 TRAIN_FUNCTION=train
-PREDICT_MODULE=finance_income_prediction.predict
-PREDICT_FUNCTION=predict_adult_income_rf
