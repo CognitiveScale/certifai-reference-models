@@ -1,4 +1,4 @@
-#!/bin/bash
+SHELL := /bin/bash
 
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
