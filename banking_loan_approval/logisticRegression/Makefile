@@ -13,13 +13,13 @@ build-train:
 	cd ../ && sh build.sh ${CONTAINER_NAME}-train '$(CURRENT_DIR)' 'train'
 
 train:
-	cd ../ && docker run --rm  -v $(PROJECT_ROOT_DIR)/data:/model/data -v $(PROJECT_ROOT_DIR)/models:/model/models -e TRAIN=1 -e PAYLOAD=${PAYLOAD} -it --rm ${CONTAINER_NAME}-train
+	cd ../ && docker run --rm  -v $(PROJECT_ROOT_DIR)/data:/opt/app-root/src/model/data -v $(PROJECT_ROOT_DIR)/models:/opt/app-root/src/model/models -e TRAIN=1 -e PAYLOAD=${PAYLOAD} -it --rm ${CONTAINER_NAME}-train
 
 build-predict:
 	cd ../ && sh build.sh ${CONTAINER_NAME}-predict '$(CURRENT_DIR)' 'predict'
 
 predict:
-	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${CONTAINER_NAME}-predict
+	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/opt/app-root/src/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${CONTAINER_NAME}-predict
 
 test-endpoint:
 	# endpoint from .s2i/environment ROUTES	 

@@ -25,10 +25,10 @@ predict-all: create-routes
 	cp -r ${PROJECT_ROOT_DIR}/../utils ${PROJECT_ROOT_DIR}/build-context
 	rsync -av --include="*.py" --exclude="*" . ${PROJECT_ROOT_DIR}/build-context/${projectname}
 
-	s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-daemon-python36-slim:1.0.0 ${CONTAINER_NAME}
+	s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-ubi-daemon-python36:1.1-SNAPSHOT ${CONTAINER_NAME}
 	# remove build artifacts
 	rm -rf ${PROJECT_ROOT_DIR}/build-context
-	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/action/models -p 5111:5000 -it ${CONTAINER_NAME}
+	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/opt/app-root/src/action/models -p 5111:5000 -it ${CONTAINER_NAME}
 
 create-routes: setup-space
 	echo  "ROUTES=" | tr -d "\n" > .s2i/env
