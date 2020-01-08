@@ -24,6 +24,7 @@ build-container:
 	rsync -av --exclude=/build-context --exclude=/models ${PROJECT_ROOT_DIR} ${PROJECT_ROOT_DIR}/build-context/${projectname}
 	cp -r .s2i requirements.txt ${PROJECT_ROOT_DIR}/build-context
 	cp -r ${PROJECT_ROOT_DIR}/../utils ${PROJECT_ROOT_DIR}/build-context
+	cp -r ${PROJECT_ROOT_DIR}/models  ${PROJECT_ROOT_DIR}/build-context/
 	rsync -av --include="*.py" --exclude="*" . ${PROJECT_ROOT_DIR}/build-context/${projectname}
 
 	s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-ubi-daemon-python36:1.1-SNAPSHOT ${CONTAINER_NAME}
@@ -62,6 +63,4 @@ help-local:
 	@echo "to install deps from file requirements_local.txt run "
 	@echo "pip install -r requirements_local.txt"
 
-create-ubi-container: create-routes build-container
-	@echo starting train inside container
-	docker run --rm -p 5111:5000 -it --entrypoint '/bin/bash' ${CONTAINER_NAME}  -c 'cd ${projectname}/all && make train-all-local && mv ../models ../../models && sh ${UBI_APP_ROOT}/s2i/bin/run '
+create-ubi-container: train-all-local create-routes build-container
