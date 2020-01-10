@@ -29,6 +29,7 @@ build-container:
 	rsync -av --include="*.py" --exclude="*" . ${PROJECT_ROOT_DIR}/build-context/${projectname}
 
 	s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-ubi-daemon-python36:1.1-SNAPSHOT ${CONTAINER_NAME}
+	cat Dockerfile.tmpl | sed  -e 's|%S2I_IMAGE%|${CONTAINER_NAME}|' > Dockerfile.ubi8
 	docker build -f Dockerfile.ubi8 -t ${CONTAINER_NAME} .
 	# remove build artifacts
 
