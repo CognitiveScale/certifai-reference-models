@@ -21,10 +21,11 @@ build-container:
 	@mkdir -p ${PROJECT_ROOT_DIR}/build-context
 	@rm -rf ${PROJECT_ROOT_DIR}/build-context/
 	mkdir -p ${PROJECT_ROOT_DIR}/build-context/${projectname}
-	rsync -av --exclude=/build-context --exclude=/models ${PROJECT_ROOT_DIR} ${PROJECT_ROOT_DIR}/build-context/${projectname}
+	rsync -av --exclude=/build-context --exclude=/licenses --exclude=/models ${PROJECT_ROOT_DIR} ${PROJECT_ROOT_DIR}/build-context/${projectname}
 	cp -r .s2i requirements.txt ${PROJECT_ROOT_DIR}/build-context
 	cp -r ${PROJECT_ROOT_DIR}/../utils ${PROJECT_ROOT_DIR}/build-context
 	cp -r ${PROJECT_ROOT_DIR}/models  ${PROJECT_ROOT_DIR}/build-context/
+	cp -r ${PROJECT_ROOT_DIR}/../licenses ${PROJECT_ROOT_DIR}/build-context/
 	rsync -av --include="*.py" --exclude="*" . ${PROJECT_ROOT_DIR}/build-context/${projectname}
 
 	s2i build -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-ubi-daemon-python36:1.1-SNAPSHOT ${CONTAINER_NAME}
