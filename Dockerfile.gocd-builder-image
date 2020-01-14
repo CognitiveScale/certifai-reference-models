@@ -1,0 +1,16 @@
+FROM ubuntu:xenial-20191212
+
+RUN apt-get update && \
+    apt-get install -y apt-transport-https ca-certificates curl software-properties-common lxc iptables && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable" && \
+    apt-get update && \
+    apt-get install -y docker-ce
+
+RUN apt-get install -y wget && \
+    wget https://github.com/openshift/source-to-image/releases/download/v1.2.0/source-to-image-v1.2.0-2a579ecd-linux-amd64.tar.gz && \
+    tar -xvf source-to-image-v1.2.0-2a579ecd-linux-amd64.tar.gz && \
+    cp ./s2i /usr/bin && \
+    rm source-to-image-v1.2.0-2a579ecd-linux-amd64.tar.gz sti s2i 
+
+RUN apt install -y rsync make
