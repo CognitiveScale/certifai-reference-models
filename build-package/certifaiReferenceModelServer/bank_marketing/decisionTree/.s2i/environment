@@ -1,0 +1,3 @@
+ROUTES=bank_marketing_dtree/predict:bank_marketing.decisionTree.predict:predict_bank_marketing_dtree
+TRAIN_MODULE=bank_marketing.decisionTree.train
+TRAIN_FUNCTION=train
