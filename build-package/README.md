@@ -4,7 +4,7 @@ To create package and start server run
 
 `sh install.sh`
 
-Package is created under `build-package/dist/cortex-certifai-reference-model-server-0.0.1.dev1.zip`
+Package is created under `build-package/dist/cortex-certifai-reference-model-server-0.5.0.zip`
 
 Once installed; to start server manually type `startCertifaiModelServer` on the terminal
 
