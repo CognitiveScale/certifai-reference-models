@@ -2,3 +2,5 @@ __pycache__/
 models/
 build-context/
 .vscode/
+dist/
+*.egg-info
