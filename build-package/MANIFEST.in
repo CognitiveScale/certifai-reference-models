@@ -3,4 +3,6 @@ recursive-exclude certifaiReferenceModelServer/*/models *
 recursive-exclude certifaiReferenceModelServer/*/data *
 recursive-exclude certifaiReferenceModelServer/__pycache__ *
 
+include LICENSE
+
 global-exclude __pycache__
