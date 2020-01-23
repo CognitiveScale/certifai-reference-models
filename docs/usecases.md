@@ -116,7 +116,6 @@ For additional information about the Certifai evaluations, how to use Certifai, 
 
   - SVM
   - Random Forest
-  - XGBoost
 
 **Evaluation Types**:
 
