@@ -1,7 +1,6 @@
 numpy==1.17.3
 scikit-learn==0.20.3
 pandas==0.25.3
-xgboost==0.90
 keras==2.3.1
 tensorflow==1.15.2
 cortex-python==1.1.0

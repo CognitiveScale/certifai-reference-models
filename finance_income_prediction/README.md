@@ -11,7 +11,6 @@
 
   - SVM
   - Random Forest
-  - XGBoost
 
 **Evaluation Types**:
 
