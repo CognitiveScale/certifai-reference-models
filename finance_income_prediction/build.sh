@@ -30,6 +30,7 @@ rsync -av --exclude=.s2i  ${modeldir} build-context/${projectname}/
 cp -r ../utils build-context/
 cp -r common_utils build-context/${projectname}/
 cp -r ${modeldir}/.s2i build-context
+[[ -e ${modeldir}/setup.sh ]] &&  cp -r ${modeldir}/setup.sh build-context
 
 echo "setting container as ${target} and model-dir as ${modeldir}"
 
@@ -52,4 +53,4 @@ else
 fi
 
 # remove build artifacts
-rm -rf build-context
+# rm -rf build-context
