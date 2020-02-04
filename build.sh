@@ -12,8 +12,11 @@ function local_docker() {
 # This runs inside a linux docker container
 function docker_build() {
     cd all
+    virtualenv -p python3.6 reference_models
+    source ./reference_models/bin/activate
+    pip install -r requirements.txt
     service docker start
-    make create-routes-all && make build-container
+    make setup-build-space && make train-pipeline && make create-routes-all && make build-container
     docker tag c12e/model-server c12e/certifai-reference-models
     docker push c12e/certifai-reference-models
 }
