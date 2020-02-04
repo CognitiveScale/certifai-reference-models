@@ -21,7 +21,7 @@ train-projects-all:
 build-container:
 	@mkdir -p ${PROJECT_ROOT_DIR}/build-context
 	@rm -rf ${PROJECT_ROOT_DIR}/build-context/
-	rsync -av --exclude=/.git* --exclude=/data --exclude=/build-context --exclude=models*  --delete-excluded  ${PROJECT_ROOT_DIR}/ ${PROJECT_ROOT_DIR}/all/ ${PROJECT_ROOT_DIR}/build-context		
+	rsync -av --exclude=/.git* --exclude=/data --exclude=/build-context --delete-excluded  ${PROJECT_ROOT_DIR}/ ${PROJECT_ROOT_DIR}/all/ ${PROJECT_ROOT_DIR}/build-context
 	rsync -avr --include="setup.sh" --exclude="*" ${PROJECT_ROOT_DIR}/**/**/ ${PROJECT_ROOT_DIR}/build-context
 	s2i build --rm -c ${PROJECT_ROOT_DIR}/build-context c12e/cortex-s2i-daemon-python36-slim:1.0.0 ${CONTAINER_NAME}
 	# remove build artifacts
