@@ -11,7 +11,4 @@ cd certifaiReferenceModelServer/all && make train-projects-all-local
 
 cd ../ && mkdir -p models/ && rm -rf models/* && find . -type f -name '*.pkl' -exec mv {} models/ \;
 
-cd .. && python setup.py sdist  --format=zip && pip install dist/cortex-certifai-reference-model-server-0.5.0.zip 
-
-# start installed modelServer package binary
-startCertifaiModelServer
+cd .. && python setup.py sdist  --format=zip && pip install dist/cortex-certifai-reference-model-server-0.5.0.zip
