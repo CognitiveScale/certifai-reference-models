@@ -18,7 +18,7 @@ with open('README.md', 'r') as f:
 
 
 setup(name='cortex-certifai-reference-model-server',
-      description="Python SDK for the CognitiveScale Certifai AI Auditor",
+      description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
       long_description=long_description,
       long_description_content_type='text/Markdown',
       version='0.5.0',
