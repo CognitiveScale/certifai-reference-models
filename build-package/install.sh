@@ -5,7 +5,7 @@ CFI_CURRENT_VERSION=$(echo ${CFI_CURRENT_VERSION_LONG} | cut -d '-' -f 1)
 CFI_VERSION_BUILD_NUM=$(echo ${CFI_CURRENT_VERSION_LONG} | cut -d '-' -f 2-)
 CFI_PKG_VERSION=$(echo ${CFI_CURRENT_VERSION} | awk -F. -v OFS=. -v f=3 '{ $$f++ } 1')
 
-echo ${CFI_PKG_VERSION} ${CFI_CURRENT_VERSION_LONG} ${CFI_VERSION_BUILD_NUM}
+echo ${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM} > certifai_reference_model_server_build_manifest.txt
 sed -i '' "s/__version__ = '.*'/__version__ = '${CFI_PKG_VERSION}'/" setup.py
 
 # create package to register package namespace
