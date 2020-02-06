@@ -16,12 +16,13 @@ from setuptools import setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
+__version__ = '0.5.1'
 
 setup(name='cortex-certifai-reference-model-server',
       description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
       long_description=long_description,
       long_description_content_type='text/Markdown',
-      version='0.5.0',
+      version=__version__,
       author='CognitiveScale',
       author_email='info@cognitivescale.com',
       url='https://www.cognitivescale.com/',
