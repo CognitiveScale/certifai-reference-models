@@ -6,7 +6,8 @@ CFI_VERSION_BUILD_NUM=$(echo ${CFI_CURRENT_VERSION_LONG} | cut -d '-' -f 2-)
 CFI_PKG_VERSION=$(echo ${CFI_CURRENT_VERSION} | awk -F. -v OFS=. -v f=3 '{ $$f++ } 1')
 
 echo ${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM} > buildReportManifest.txt
-sed -i '' "s/__version__ = '.*'/__version__ = '${CFI_PKG_VERSION}'/" setup.py
+cat setup.py | sed "s/__version__ = '.*'/__version__ = '${CFI_PKG_VERSION}'/" > setup.py.tmp
+mv setup.py.tmp setup.py
 
 # create package to register package namespace
 python setup.py sdist  --format=zip
