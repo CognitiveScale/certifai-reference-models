@@ -16,7 +16,7 @@ mv dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}.zip dist/corte
 
 pip install dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM}.zip
 
-run train with installed package
+# run train with installed package
 cd certifaiReferenceModelServer/all && make train-projects-all-local
 
 # mv models from projects and build-again
@@ -24,3 +24,5 @@ cd certifaiReferenceModelServer/all && make train-projects-all-local
 cd ../ && mkdir -p models/ && rm -rf models/* && find . -type f -name '*.pkl' -exec mv {} models/ \;
 
 cd .. && python setup.py sdist  --format=zip && mv dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}.zip dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM}.zip && pip install dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM}.zip
+
+mkdir -p ../artifacts/packages && rm -rf ../artifacts/packages/*  && cp dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM}.zip ../artifacts/packages && cp buildReportManifest.txt ../artifacts/

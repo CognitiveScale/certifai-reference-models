@@ -4,3 +4,5 @@ build-context/
 .vscode/
 dist/
 *.egg-info
+artifacts/
+reference_models/
