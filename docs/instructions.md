@@ -143,8 +143,20 @@ finance_income_prediction
 │   └── train.py
 ├── models
 │   ├── *adult_income_lr.pkl
-│   └── *adult_income_rf.pkl
-└── randomForest
+│   ├── *adult_income_rf.pkl
+│   └── *adult_income_xgb.pkl
+├── randomForest
+│   ├── .s2i
+│   │   └── environment
+│   ├── Makefile
+│   ├── README.md
+│   ├── predict.py
+│   ├── requirements_predict.txt
+│   ├── requirements_train.txt
+│   ├── test
+│   │   └── test_instances.json
+│   └── train.py
+└── xgBoost
     ├── .s2i
     │   └── environment
     ├── Makefile
@@ -157,7 +169,7 @@ finance_income_prediction
     └── train.py
 ```
 
-In the finance_income_prediction example the three sample models, logisticRegression and randomForest, predict adult income given features like education level, gender, and job description.
+In the finance_income_prediction example the three sample models, logisticRegression, randomForest, and xgBoost, predict adult income given features like education level, gender, and job description.
 
   **NOTE**: Files pre-fixed with * are auto-generated.
 
@@ -243,7 +255,7 @@ The `.s2i/environment` is auto-generated from individual model's `.s2i/environme
 **EXAMPLE:**
 The user must specify:
 
-- `MODEL_DIRS`: logisticRegression randomForest
+- `MODEL_DIRS`: xgBoost logisticRegression randomForest
     for the model dirs to include in the container
 - `CONTAINER_NAME`: name of the predict container containing all routes
 
