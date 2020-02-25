@@ -1,3 +1,0 @@
-builder:
-  image: c12e/certifai:reference_models_builder-20200204_5
-  command: "./build.sh CI"

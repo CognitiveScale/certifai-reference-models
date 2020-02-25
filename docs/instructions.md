@@ -164,7 +164,6 @@ finance_income_prediction
     ├── predict.py
     ├── requirements_predict.txt
     ├── requirements_train.txt
-    ├── setup.sh
     ├── test
     │   └── test_instances.json
     └── train.py
