@@ -6,3 +6,4 @@ dist/
 *.egg-info
 artifacts/
 reference_models/
+.idea/
