@@ -20,7 +20,8 @@ Creating a rest api to expose model's predict functionality
 ## predict     
  Create a predict function that takes a message object as function parameter containing data instances to predict against   
 and return list of predictions   
-   
+
+   > refer to function `predict_iris_type` in `iris_classification/predict.py`
   
 ##  api
   

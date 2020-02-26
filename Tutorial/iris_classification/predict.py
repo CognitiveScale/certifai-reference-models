@@ -68,6 +68,7 @@ def predict_iris_type(msg: Message) -> Dict:
 if __name__ == '__main__':
     """
     [optional] only when running file as python script
+    [additional dependency] `pip install cortex-python==1.1.0` when running main
     """
     test_set = _create_test_data()
     with open(test_set) as fl:
