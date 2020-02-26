@@ -1,0 +1,1 @@
+ROUTES=iris_classification_svc/predict:predict:predict_iris_type
