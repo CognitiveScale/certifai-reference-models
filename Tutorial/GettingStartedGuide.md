@@ -9,8 +9,8 @@ This guide explains how to package up your trained model as a web service(inside
 3. [api](#api)  
 4. [build-container](#build-container)  
 5. [run-container](#run-container)  
-5. [test-container](#test-container) 
-6. [makefile-commands](#makefile)
+6. [test-container](#test-container) 
+7. [makefile-commands](#makefile)
   
 ## pre-requisites  
   
