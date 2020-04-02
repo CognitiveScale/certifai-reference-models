@@ -1,7 +1,7 @@
 .PHONY: train-all predict-all create-routes test-all
 SHELL := /bin/bash
 
-MODEL_DIRS := logisticRegression kNearestNeighbors
+MODEL_DIRS := logisticRegression kNearestNeighbors randomForest
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 projectname := $(shell basename $(dir $(abspath $(dir pwd))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
