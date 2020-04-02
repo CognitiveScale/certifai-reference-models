@@ -4,7 +4,7 @@ import random
 import pandas as pd
 import numpy as np
 from cortex import Message
-from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
 from utils.encode_decode import pickle_model
 from healthcare_heart_disease_prediction.common_utils.train_utils import CategoricalEncoder
 
@@ -46,12 +46,12 @@ def train(msg):
     y_test = y_test_df
 
     # start model training
-    logit = LogisticRegression(random_state=RANDOM_SEED, solver='lbfgs')
-    logit.fit(X_train.values, y_train.values)
-    logit_acc = logit.score(X_test.values, y_test.values)
+    knn = KNeighborsClassifier()
+    knn.fit(X_train, y_train)
+    knn_acc = knn.score(X_test, y_test)
     model_binary = f"models/{save_model_as}.pkl"
-    pickle_model(logit, scaler, 'LR', logit_acc, 'Logistic Regression Classifier', model_binary)
-    print(logit_acc)
+    pickle_model(knn, scaler, 'KNN', knn_acc, 'K Nearest Neighbor Classifier', model_binary)
+    print(knn_acc)
     return f"model: {model_binary}"
 
 if __name__ == "__main__":

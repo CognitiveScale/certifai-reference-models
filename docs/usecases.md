@@ -157,7 +157,7 @@ For additional information about the Certifai evaluations, how to use Certifai, 
 
 **Description**: Each dataset row represents the attribute values for a patient. The models predict whether or not a patient has heart disease or not.
 
-**Dataset Source**: TODO(la)
+**Dataset Source**:
 
 **Pre-Trained Model**:
 
