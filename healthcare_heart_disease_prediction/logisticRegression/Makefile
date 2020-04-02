@@ -3,9 +3,9 @@ SHELL := /bin/bash
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
 
-MODEL_NAME = "heart_disease_logit"
+MODEL_NAME = "heart_disease_lr"
 DATASET_NAME = "data/heart_disease_multiclass-prepped.csv"
-CONTAINER_NAME = 'heart-disease-logit'
+CONTAINER_NAME = 'heart-disease-lr'
 
 
 PAYLOAD = '{"$$ref": ${DATASET_NAME}, "model_name": ${MODEL_NAME} }'

@@ -5,13 +5,13 @@ import numpy as np
 from utils.encode_decode import init_model
 from utils.local_server import assemble_server
 
-model_name = os.getenv("MODElNAME", "heart_disease_logit")
+model_name = os.getenv("MODElNAME", "heart_disease_lr")
 
 model_ctx = {}
 
 
 # entrypoint for predict daemon
-def predict_heart_disease_logit(msg):
+def predict_heart_disease_lr(msg):
     instances = msg.payload.get("instances", [])
     if not model_name in model_ctx:
         model_ctx[model_name] = init_model(model_name)
