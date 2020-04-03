@@ -7,3 +7,4 @@ dist/
 artifacts/
 reference_models/
 .idea/
+buildReportManifest.txt
