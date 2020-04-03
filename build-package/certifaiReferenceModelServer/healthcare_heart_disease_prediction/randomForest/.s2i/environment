@@ -1,0 +1,3 @@
+ROUTES=heart_disease_rf/predict:healthcare_heart_disease_prediction.randomForest.predict:predict_heart_disease_rf
+TRAIN_MODULE=healthcare_heart_disease_prediction.randomForest.train
+TRAIN_FUNCTION=train
