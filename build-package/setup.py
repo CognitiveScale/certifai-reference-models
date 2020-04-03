@@ -16,7 +16,7 @@ from setuptools import setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
-__version__ = '0.5.1'
+__version__ = '1.2.12'
 
 setup(name='cortex-certifai-reference-model-server',
       description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
@@ -38,6 +38,7 @@ setup(name='cortex-certifai-reference-model-server',
         'cortex-python==1.1.0',
         'keras==2.3.1',
         'tensorflow==1.15.2',
+        'PyYAML>=5.3.0'
       ],
 
 
