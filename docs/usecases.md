@@ -155,9 +155,9 @@ For additional information about the Certifai evaluations, how to use Certifai, 
 
 **Learning Task Type**: Multiclass Classification
 
-**Description**: Each dataset row represents the attribute values for a patient. The models predict whether or not a patient has heart disease or not.
+**Description**: In this use case, each entry in the dataset represents a patient. The models predict whether or not a patient has heart disease (angiographic disease status).
 
-**Dataset Source**:
+**Dataset Source**: [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Heart+Disease)
 
 **Pre-Trained Model**:
 
