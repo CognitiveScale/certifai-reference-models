@@ -5,8 +5,8 @@ import pandas as pd
 import numpy as np
 from cortex import Message
 from sklearn.linear_model import LogisticRegression
-from utils.encode_decode import pickle_model
-from healthcare_heart_disease_prediction.common_utils.train_utils import CategoricalEncoder
+from certifaiReferenceModelServer.utils.encode_decode import pickle_model
+from certifaiReferenceModelServer.healthcare_heart_disease_prediction.common_utils.train_utils import CategoricalEncoder
 
 RANDOM_SEED = 0
 

@@ -2,8 +2,8 @@ import os
 import sys
 import pickle
 import numpy as np
-from utils.encode_decode import init_model
-from utils.local_server import assemble_server
+from certifaiReferenceModelServer.utils.encode_decode import init_model
+from certifaiReferenceModelServer.utils.local_server import assemble_server
 
 model_name = os.getenv("MODElNAME", "heart_disease_rf")
 
