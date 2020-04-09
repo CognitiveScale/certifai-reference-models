@@ -10,7 +10,7 @@ function local_docker() {
 }
 
 # This runs inside a linux docker container
-function docker_build() {
+function package_build() {
     cd build-package
     virtualenv -p python3.6 reference_models
     source ./reference_models/bin/activate
@@ -19,12 +19,10 @@ function docker_build() {
 
 ## MAIN
 cd "$(dirname "$0")"
-VERSION=$(git describe --long --always --dirty --match='v*.*' | sed 's/v//; s/-/./')
-echo "##### BUILDING ${VERSION} ######"
 
 case ${1-local} in
  CI)
-  docker_build
+  package_build
   ;;
  *)
   local_docker

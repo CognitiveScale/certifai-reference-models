@@ -9,7 +9,7 @@ LABEL release=1 \
   com.cognitivescale.license_terms="https://www.cognitivescale.com/legal-information/"
 
 COPY licenses /licenses
-COPY build-package/dist/cortex-certifai-reference-model-server-*.zip \
+COPY artifacts/packages/cortex-certifai-reference-model-server-*.zip \
        /tmp/
 
 WORKDIR /app
