@@ -1,3 +1,0 @@
-ROUTES=auto_insurance_nn/predict:insurance_auto_insurance_claims.neuralNetwork.predict:predict_auto_insurance_nn
-TRAIN_MODULE=insurance_auto_insurance_claims.neuralNetwork.train
-TRAIN_FUNCTION=train

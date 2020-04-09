@@ -1,7 +1,7 @@
 .PHONY: train-all predict-all create-routes test-all test-all
 SHELL := /bin/bash
 
-MODEL_DIRS := linearRegressionL1 linearRegressionL2 neuralNetwork supportVectorRegression randomForest
+MODEL_DIRS := linearRegressionL1 linearRegressionL2 supportVectorRegression randomForest
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 projectname := $(shell basename $(dir $(abspath $(dir pwd))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
