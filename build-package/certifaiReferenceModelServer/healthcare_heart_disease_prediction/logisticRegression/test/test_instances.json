@@ -1,0 +1,19 @@
+{
+	"payload": {
+        "instances": [
+            63.0,
+            "sex_male",
+            1.0,
+            145.0,
+            233.0,
+            "fbs_greater_than_120mg/dl",
+            2.0,
+            150.0,
+            "exang_no",
+            2.3,
+            3.0,
+            0.0,
+            6.0
+        ]
+	}
+}

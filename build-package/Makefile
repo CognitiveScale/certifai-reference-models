@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-MODEL_DIRS := bank_marketing banking_customer_churn_prediction banking_loan_approval finance_income_prediction healthcare_disease_prediction insurance_auto_insurance_claims
+MODEL_DIRS := bank_marketing banking_customer_churn_prediction banking_loan_approval finance_income_prediction healthcare_disease_prediction insurance_auto_insurance_claims healthcare_heart_disease_prediction
 CURRENT_DIR := $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 PROJECT_ROOT_DIR := $(CURRENT_DIR)../
 CONTAINER_NAME = 'c12e/certifai-reference-models-server'

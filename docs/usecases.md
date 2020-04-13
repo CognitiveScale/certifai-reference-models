@@ -60,7 +60,7 @@ For additional information about the Certifai evaluations, how to use Certifai, 
 
 **Learning Task Type**: Binary Classification
 
-**Description**: Each dataset row represents the attribute values for a customer or previous customer of the bank. The models predict whether or not the customer will close their accounts or remain a customer.  
+**Description**: Each dataset row represents the attribute values for a customer or previous customer of the bank. The models predict whether or not the customer will close their accounts or remain a customer.
 
 **Dataset Source**: [Kaggle](https://www.kaggle.com/janiobachmann/bank-marketing-dataset) - Originally from the [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
 
@@ -141,6 +141,29 @@ For additional information about the Certifai evaluations, how to use Certifai, 
   - Neural Network
   - Random Forest Regressor
   - SVR
+
+**Evaluation Types**:
+
+  - Robustness
+  - Fairness
+  - Explainability
+  - Explanations
+
+---
+
+## <b>Healthcare: Heart Disease Prediction</b>
+
+**Learning Task Type**: Multiclass Classification
+
+**Description**: In this use case, each entry in the dataset represents a patient. The models predict whether or not a patient has heart disease (angiographic disease status).
+
+**Dataset Source**: [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/Heart+Disease)
+
+**Pre-Trained Model**:
+
+  - Logistic Regression
+  - Random Forest
+  - K Nearest Neighbors
 
 **Evaluation Types**:
 

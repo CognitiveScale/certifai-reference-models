@@ -1,0 +1,3 @@
+ROUTES=heart_disease_knn/predict:healthcare_heart_disease_prediction.kNearestNeighbors.predict:predict_heart_disease_knn
+TRAIN_MODULE=healthcare_heart_disease_prediction.kNearestNeighbors.train
+TRAIN_FUNCTION=train
