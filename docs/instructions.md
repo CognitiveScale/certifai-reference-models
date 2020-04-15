@@ -81,7 +81,7 @@ assumed)
 ```
 * For general classification (binary or multi-class) the `scores` array may be an array (one per input row) of
 arrays (one per class label) of scores, wherein it is assumed that the predicted label is the one with the highest score.
-`theshold` is ignored in this case.  The model may optionally return the ordering of the `scores` array (label dimension)
+`threshold` is ignored in this case.  The model may optionally return the ordering of the `scores` array (label dimension)
 overriding anything specified in the Certifai scan definition.  This allows models to assert whatever label
 ordering metadata is appropriate to them in a way that ensures compatability with the particular deployed
 trained instance of the model.
@@ -90,7 +90,7 @@ trained instance of the model.
    "payload": {
      "predictions": [3],
      "scores": [[0.2, 0.2, 0.2, 0.4]],
-     "labels": ["one:, "two", "three"]
+     "labels": ["one", "two", "three"]
    }
 }
 ```
