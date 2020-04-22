@@ -2,6 +2,7 @@ import numpy as np
 import os
 import sys
 import pickle
+from sklearn.metrics import precision_recall_curve
 from utils.encode_decode import init_model
 from utils.local_server import assemble_server
 
@@ -28,7 +29,13 @@ def predict(model_ctx, instances):
         instances = scaler.transform(instances)
 
     predictions = model_obj["model"].predict(instances)
-    return {"predictions": predictions.tolist()}
+    scores = model_obj["model"].predict_proba(instances)
+    labels = model_obj["model"].classes_
+    return {
+        "predictions": predictions.tolist(),
+        "scores": scores.tolist(),
+        "labels": labels.tolist()
+    }
 
 if __name__ == '__main__':
     assemble_server(sys.argv[1])
