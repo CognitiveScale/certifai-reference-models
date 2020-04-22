@@ -2,7 +2,6 @@ import numpy as np
 import os
 import sys
 import pickle
-from sklearn.metrics import precision_recall_curve
 from utils.encode_decode import init_model
 from utils.local_server import assemble_server
 
