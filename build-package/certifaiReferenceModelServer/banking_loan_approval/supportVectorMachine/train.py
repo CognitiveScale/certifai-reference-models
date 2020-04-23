@@ -48,7 +48,7 @@ def train(msg):
     y_test = y_test_df
 
     # start model training
-    SVM = svm.SVC(gamma="scale", random_state=RANDOM_SEED)
+    SVM = svm.SVC(gamma="scale", random_state=RANDOM_SEED, probability=True)
     SVM.fit(X_train.values, y_train.values)
     svm_acc = SVM.score(X_test.values, y_test.values)
     model_binary = f"models/{save_model_as}.pkl"
