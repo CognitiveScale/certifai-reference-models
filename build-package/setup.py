@@ -35,7 +35,7 @@ setup(name='cortex-certifai-reference-model-server',
         'scikit-learn==0.20.3',
         'pandas==0.24.2',
         'Flask==1.1.1',
-        'cortex-python==1.1.0',
+        'cortex-python==1.3.1',
         'keras==2.3.1',
       ],
 
