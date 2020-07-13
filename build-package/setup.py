@@ -32,7 +32,7 @@ setup(name='cortex-certifai-reference-model-server',
       include_package_data=True,
       install_requires=[
         'numpy==1.18.4',
-        'scikit-learn==0.20.3',
+        'scikit-learn==0.23.1',
         'pandas==0.24.2',
         'Flask==1.1.1',
         'cortex-python==1.3.1',
