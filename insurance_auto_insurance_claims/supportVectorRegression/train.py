@@ -2,7 +2,7 @@ from cortex import Cortex, Message
 import json
 import sys
 import random
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.svm import SVR
 from sklearn.metrics import r2_score
 import pandas as pd
 import numpy as np
@@ -52,18 +52,14 @@ def train(msg):
 
     # start model training
 
-    rf = RandomForestRegressor(
-        n_estimators=10, max_depth=11, bootstrap=True, random_state=RANDOM_SEED
-    )
-    rf.fit(X_train, y_train)
-    y_pred = rf.predict(X_test)
-    rf_err = ((y_test - y_pred) ** 2).sum()  # Prediction error
-
+    svr = SVR()
+    svr.fit(X_train, y_train)
+    y_pred = svr.predict(X_test)
     err = r2_score(y_test, y_pred)
 
     model_binary = f"models/{save_model_as}.pkl"
     pickle_model(
-        rf, scaler, "Random forest", err, "Random forest Regressor", model_binary
+        svr, scaler, "Support vector regressor", err, "Support vector regressor", model_binary
     )
     print(err)
     return f"model: {model_binary}"

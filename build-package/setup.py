@@ -16,7 +16,7 @@ from setuptools import setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
-__version__ = '1.2.15'
+__version__ = '1.3.3'
 
 setup(name='cortex-certifai-reference-model-server',
       description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
