@@ -6,8 +6,8 @@ from sklearn.svm import SVR
 from sklearn.metrics import r2_score
 import pandas as pd
 import numpy as np
-from insurance_auto_insurance_claims.common_utils.train_utils import CategoricalEncoder
-from utils.encode_decode import pickle_model
+from certifaiReferenceModelServer.insurance_auto_insurance_claims.common_utils.train_utils import CategoricalEncoder
+from certifaiReferenceModelServer.utils.encode_decode import pickle_model
 
 RANDOM_SEED = 0
 
