@@ -54,9 +54,20 @@ def assemble_server(routes):
 
         print("Adding route: /%s using function %s:%s" % (ep, m, f))
         app.add_url_rule("/%s" % ep, ep, invoke_fn(user_function), methods=["POST"])
+    return app
 
-    app.run(host="0.0.0.0", port=5111, threaded=False)
 
+def get_routes():
+    path = os.path.abspath(__file__)
+    fp = os.path.join(os.path.dirname(path), '..', '.s2i/environment')
+    with open(fp, 'r') as fn:
+        routes = fn.read().replace("ROUTES=", '')
+    return routes
+
+
+routes = get_routes()
+app = assemble_server(routes)
 
 if __name__ == '__main__':
-    assemble_server(sys.argv[1])
+    app = assemble_server(sys.argv[1])
+

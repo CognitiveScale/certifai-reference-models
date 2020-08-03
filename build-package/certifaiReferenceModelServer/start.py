@@ -1,14 +1,14 @@
 import sys
-import os
+import subprocess
+
 sys.path.append("./certifaiReferenceModelServer")
-from certifaiReferenceModelServer.utils.local_server import assemble_server
+
 
 def start_all():
-    path=os.path.abspath(__file__)
-    fp = os.path.join(os.path.dirname(path),'.s2i/environment')
-    with open(fp,'r') as fn:
-        routes=fn.read().replace("ROUTES=", '')
-        assemble_server(routes)
+    subprocess.call(
+        ["gunicorn", "-b", "0.0.0.0:5111", "--workers=3", "--timeout", "40", "--capture-output",
+         "--log-level",
+         "info", "certifaiReferenceModelServer.utils.local_server:app"])
 
 
 if __name__ == '__main__':
