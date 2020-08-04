@@ -6,9 +6,9 @@ sys.path.append("./certifaiReferenceModelServer")
 
 def start_all():
     subprocess.call(
-        ["gunicorn", "-b", "0.0.0.0:5111", "--workers=3", "--timeout", "40", "--capture-output",
+        ["gunicorn", "-b", "0.0.0.0:5111", "--workers=4", "-k=gevent", "--timeout", "20", "--capture-output",
          "--log-level",
-         "info", "certifaiReferenceModelServer.utils.local_server:app"])
+         "debug", "certifaiReferenceModelServer.utils.local_server:app"])
 
 
 if __name__ == '__main__':
