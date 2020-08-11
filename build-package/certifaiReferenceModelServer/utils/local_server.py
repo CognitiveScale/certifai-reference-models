@@ -68,6 +68,12 @@ def get_routes():
 routes = get_routes()
 app = assemble_server(routes)
 
+
+def start_flask_native(addr):
+    global app
+    host, port = addr.split(':')
+    app.run(host=host, port=int(port), threaded=False)
+
+
 if __name__ == '__main__':
     app = assemble_server(sys.argv[1])
-

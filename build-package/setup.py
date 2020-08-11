@@ -37,8 +37,8 @@ setup(name='cortex-certifai-reference-model-server',
         'Flask==1.1.1',
         'cortex-python==1.3.1',
         'keras==2.3.1',
-        'gunicorn==20.0.4',
-        'gevent==20.6.2'
+        'gevent==20.6.2;platform_system!="Windows"',
+        'gunicorn==20.0.4;platform_system!="Windows"'
       ],
 
 

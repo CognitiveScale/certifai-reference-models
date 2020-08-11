@@ -1,3 +1,4 @@
+import platform
 import sys
 import subprocess
 import argparse
@@ -29,10 +30,14 @@ def cli_parse(args):
 def start_all():
     args = sys.argv[1:]
     parsed_args = cli_parse(args)
-    command = f"gunicorn -b {parsed_args.bind} -t {parsed_args.timeout} --workers={parsed_args.workers} " \
-              f"--worker-class={parsed_args.worker_class} --log-level={parsed_args.log_level} " \
-              f"certifaiReferenceModelServer.utils.local_server:app"
-    subprocess.call(command.split(' '))
+    if platform.system != 'Windows':
+        command = f"gunicorn -b {parsed_args.bind} -t {parsed_args.timeout} --workers={parsed_args.workers} " \
+                  f"--worker-class={parsed_args.worker_class} --log-level={parsed_args.log_level} " \
+                  f"certifaiReferenceModelServer.utils.local_server:app"
+        subprocess.call(command.split(' '))
+    else:
+        from certifaiReferenceModelServer.utils.local_server import start_flask_native
+        start_flask_native(parsed_args.bind)
 
 
 if __name__ == '__main__':
