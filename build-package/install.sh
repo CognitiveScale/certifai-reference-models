@@ -9,6 +9,7 @@ echo ${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM} > buildReportManifest.txt
 cat setup.py | sed "s/__version__ = '.*'/__version__ = '${CFI_PKG_VERSION}'/" > setup.py.tmp
 mv setup.py.tmp setup.py
 
+rm -rf dist/*
 # create package to register package namespace
 python setup.py sdist  --format=zip
 
