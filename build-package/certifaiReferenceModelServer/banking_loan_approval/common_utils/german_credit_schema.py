@@ -1,3 +1,7 @@
+""" 
+Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
+Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
+"""
 import pandas as pd
 feature_names = ['checkingstatus', 'duration', 'history', 'purpose', 'amount', 'savings', 'employ', 'installment', 'status', 'others', 'residence', 'property', 'age', 'otherplans', 'housing', 'cards', 'job', 'liable', 'telephone', 'foreign']
 

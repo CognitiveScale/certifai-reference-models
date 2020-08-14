@@ -1,15 +1,7 @@
+""" 
+Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
+Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
 """
-Copyright 2019 Cognitive Scale, Inc. All Rights Reserved.
-
-See LICENSE.txt for details.
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-"""
-
 from setuptools import find_packages
 from setuptools import setup
 
