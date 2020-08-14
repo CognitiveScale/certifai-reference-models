@@ -16,7 +16,7 @@ from setuptools import setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
-__version__ = '1.2.12'
+__version__ = '1.3.3'
 
 setup(name='cortex-certifai-reference-model-server',
       description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
@@ -31,12 +31,14 @@ setup(name='cortex-certifai-reference-model-server',
       packages=find_packages(),
       include_package_data=True,
       install_requires=[
-        'numpy==1.16.3',
-        'scikit-learn==0.20.3',
+        'numpy==1.18.4',
+        'scikit-learn==0.23.1',
         'pandas==0.24.2',
         'Flask==1.1.1',
-        'cortex-python==1.1.0',
+        'cortex-python==1.3.1',
         'keras==2.3.1',
+        'gevent==20.6.2;platform_system!="Windows"',
+        'gunicorn==20.0.4;platform_system!="Windows"'
       ],
 
 

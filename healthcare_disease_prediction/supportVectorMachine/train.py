@@ -4,9 +4,9 @@ import sys
 import random
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import StandardScaler
 from sklearn import svm
-from healthcare_disease_prediction.common_utils.train_utils import prep_diabetes_dataset
+from healthcare_disease_prediction.common_utils.train_utils import prep_diabetes_dataset, \
+    WrappedStandardScaler
 from utils.encode_decode import pickle_model
 
 RANDOM_SEED = 0
@@ -37,7 +37,7 @@ def train(msg):
     X_test_df = test_data.drop("Outcome", axis=1)
 
     # create encoder on entire dataset
-    scaler = StandardScaler(copy=True, with_mean=True, with_std=True)
+    scaler = WrappedStandardScaler(copy=True, with_mean=True, with_std=True)
     scaler.fit(X)
 
     # apply encoding to train and test data features
