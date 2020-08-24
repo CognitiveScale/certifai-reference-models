@@ -34,7 +34,7 @@ def cli_parse(args):
 def start_all():
     args = sys.argv[1:]
     parsed_args = cli_parse(args)
-    if platform.system != 'Windows':
+    if platform.system() != 'Windows':
         command = f"gunicorn -b {parsed_args.bind} -t {parsed_args.timeout} --workers={parsed_args.workers} " \
                   f"--worker-class={parsed_args.worker_class} --log-level={parsed_args.log_level} " \
                   f"certifaiReferenceModelServer.utils.local_server:app"
