@@ -1,4 +1,4 @@
-""" 
+"""
 Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
 Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
 """
@@ -8,7 +8,7 @@ from setuptools import setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
-__version__ = '1.3.3'
+__version__ = '1.3.5'
 
 setup(name='cortex-certifai-reference-model-server',
       description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
@@ -25,7 +25,7 @@ setup(name='cortex-certifai-reference-model-server',
       install_requires=[
         'numpy==1.18.4',
         'scikit-learn==0.23.1',
-        'pandas==0.24.2',
+        'pandas==0.25.3',
         'Flask==1.1.1',
         'cortex-python==1.3.1',
         'keras==2.3.1',
