@@ -8,21 +8,38 @@ import subprocess
 import argparse
 from argparse import RawTextHelpFormatter
 import socket
+import enum
+from typing import NamedTuple
 
 sys.path.append("./certifaiReferenceModelServer")
 
-_supported_worker_class = [
-    'sync',
-    'gevent',
-    'gthread'
-]
-_supported_log_levels = [
-    'debug',
-    'info',
-    'warning',
-    'error',
-    'critical'
-]
+
+class WorkerTypeEnum(str, enum.Enum):
+    __catalog_name__ = 'worker_class'
+    gevent = 'gevent'
+    gthread = 'gthread'
+    sync = 'sync'
+
+
+class LogLevelEnum(str, enum.Enum):
+    __catalog_name__ = 'log-level'
+    debug = 'debug'
+    info = 'info'
+    warning = 'warning'
+    error = 'error'
+    critical = 'critical'
+
+
+class GunicornOpt(NamedTuple):
+    bind: str
+    workers: int
+    worker_class: WorkerTypeEnum
+    timeout: int
+    log_level: LogLevelEnum
+
+
+_supported_worker_class = [e.value for e in WorkerTypeEnum]
+_supported_log_levels = [e.value for e in LogLevelEnum]
 
 
 def create_parser():
@@ -64,7 +81,12 @@ def _validate_user_input(parsed_args):
     if parsed_args.log_level not in _supported_log_levels:
         raise ValueError(f"invalid argument for log-level.only {_supported_log_levels} is supported ")
 
-    return parsed_args
+    return GunicornOpt(f'{bind_ip}:{bind_port}',
+                       parsed_args.workers,
+                       parsed_args.worker_class,
+                       parsed_args.timeout,
+                       parsed_args.log_level
+                       )
 
 
 def cli_parse(args):
@@ -76,10 +98,10 @@ def start_all():
     args = sys.argv[1:]
     parsed_args = cli_parse(args)
     # for veracode static scan
-    parsed_args = _validate_user_input(parsed_args)
+    sanitized_args = _validate_user_input(parsed_args)
     if platform.system() != 'Windows':
-        command = f"gunicorn -b {parsed_args.bind} -t {parsed_args.timeout} --workers={parsed_args.workers} " \
-                  f"--worker-class={parsed_args.worker_class} --log-level={parsed_args.log_level} " \
+        command = f"gunicorn -b {sanitized_args.bind} -t {sanitized_args.timeout} --workers={sanitized_args.workers} " \
+                  f"--worker-class={sanitized_args.worker_class} --log-level={sanitized_args.log_level} " \
                   f"certifaiReferenceModelServer.utils.local_server:app"
         subprocess.call(command.split(' '))
     else:
