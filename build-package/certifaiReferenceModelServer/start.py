@@ -100,6 +100,13 @@ def start_all():
     # for veracode static scan
     sanitized_args = _validate_user_input(parsed_args)
     if platform.system() != 'Windows':
+        import signal
+
+        def handler(_, frame):
+            sys.exit(0)
+
+        signal.signal(signal.SIGINT, handler)
+        signal.signal(signal.SIGTERM, handler)
         command = f"gunicorn -b {sanitized_args.bind} -t {sanitized_args.timeout} --workers={sanitized_args.workers} " \
                   f"--worker-class={sanitized_args.worker_class} --log-level={sanitized_args.log_level} " \
                   f"certifaiReferenceModelServer.utils.local_server:app"
