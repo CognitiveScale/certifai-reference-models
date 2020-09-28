@@ -41,7 +41,8 @@ def _validate_message(msg):
         elif 'instances' not in msg.payload.keys():
             return BadRequest(f'Missing `instances`. Expected format {json.dumps(EmptyRequest().request)}')
         elif not isinstance(msg.payload.get('instances'), List):
-            return BadRequest("`instances` must be of type List[Union[a, List a] ")
+            return BadRequest(
+                "`instances` must be either be an array of instances or a single instance, containing an array of feature values")
         elif is_empty(msg.payload.get('instances')):
             return EmptyResponse()
         else:
