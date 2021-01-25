@@ -8,6 +8,10 @@ LABEL release=1 \
   description="Reference Model Server for Cognitive Scale's Cortex Certifai" \
   com.cognitivescale.license_terms="https://www.cognitivescale.com/legal-information/"
 
+USER root
+RUN yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical
+USER default
+
 COPY licenses /licenses
 COPY dist/cortex-certifai-reference-model-server-*.zip \
        /tmp/
