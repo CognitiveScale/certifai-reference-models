@@ -1,4 +1,4 @@
-""" 
+"""
 Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
 Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
 """
@@ -13,6 +13,8 @@ os.environ["PYTHONHASHSEED"] = str(RANDOM_SEED)
 import random
 import numpy as np
 from tensorflow import set_random_seed
+# note we cannot use the recommended tensorflow.keras here due to
+# https://github.com/tensorflow/tensorflow/issues/34697
 from keras.models import Sequential
 from keras.layers import Dense
 from sklearn.metrics import r2_score
