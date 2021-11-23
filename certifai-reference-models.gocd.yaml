@@ -1,0 +1,24 @@
+format_version: 10
+pipelines:
+  certifai-reference-models-ubi:
+    group: certifai
+    environment_variables:
+      SKIP_ECR_PUSH: "true"
+    materials:
+      certifai:
+        git: git@github.com:CognitiveScale/certifai-reference-models.git
+        branch: master
+    stages:
+      - build:
+          clean_workspace: yes
+          jobs:
+            Build:
+              artifacts:
+                - build:
+                    source: Dockerfile.c12e-ci.cortex-certifai-reference-model-server.ubi8
+                - build:
+                    source: artifacts
+              tasks:
+                - script: |
+                    set -eux
+                    c12e-ci
