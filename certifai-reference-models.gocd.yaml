@@ -13,6 +13,7 @@ pipelines:
           clean_workspace: yes
           jobs:
             Build:
+              elastic_profile_id: gocd-test-agent-dind
               artifacts:
                 - build:
                     source: Dockerfile.c12e-ci.cortex-certifai-reference-model-server.ubi8
