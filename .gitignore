@@ -3,6 +3,7 @@ models/
 build-context/
 .vscode/
 dist/
+*.DS_Store
 *.egg-info
 artifacts/
 reference_models/
