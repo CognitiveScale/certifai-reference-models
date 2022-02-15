@@ -8,7 +8,7 @@ from setuptools import setup
 with open('README.md', 'r') as f:
     long_description = f.read()
 
-__version__ = '1.3.5'
+__version__ = '1.3.9'
 
 setup(name='cortex-certifai-reference-model-server',
       description="Python Package for the CognitiveScale Cortex Certifai Reference Models",
@@ -29,7 +29,6 @@ setup(name='cortex-certifai-reference-model-server',
         'flask>=1.1.4,<2.0',
         'markupsafe<2.1',
         'cortex-python==1.3.1',
-        'keras==2.3.1',
         'gevent==20.6.2;platform_system!="Windows"',
         'gunicorn==20.0.4;platform_system!="Windows"',
         'greenlet==0.4.16;platform_system!="Windows"'
