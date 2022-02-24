@@ -27,6 +27,7 @@ setup(name='cortex-certifai-reference-model-server',
         'scikit-learn==0.23.1',
         'pandas==0.25.3',
         'Flask==1.1.4',
+        'markupsafe==2.0.1',
         'gevent==20.6.2;platform_system!="Windows"',
         'gunicorn==20.0.4;platform_system!="Windows"',
         'greenlet==0.4.16;platform_system!="Windows"'
