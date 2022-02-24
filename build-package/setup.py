@@ -28,7 +28,6 @@ setup(name='cortex-certifai-reference-model-server',
         'pandas==0.25.3',
         'flask>=1.1.4,<2.0',
         'markupsafe<2.1',
-        'cortex-python==1.3.1',
         'gevent==20.6.2;platform_system!="Windows"',
         'gunicorn==20.0.4;platform_system!="Windows"',
         'greenlet==0.4.16;platform_system!="Windows"'

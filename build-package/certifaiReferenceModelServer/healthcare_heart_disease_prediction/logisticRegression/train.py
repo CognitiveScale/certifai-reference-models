@@ -49,7 +49,7 @@ def train(msg):
     y_test = y_test_df
 
     # start model training
-    logit = LogisticRegression(random_state=RANDOM_SEED, solver='lbfgs')
+    logit = LogisticRegression(random_state=RANDOM_SEED, solver='liblinear')
     logit.fit(X_train.values, y_train.values)
     logit_acc = logit.score(X_test.values, y_test.values)
     model_binary = f"models/{save_model_as}.pkl"

@@ -54,7 +54,7 @@ def train(msg):
     y_test = y_test_df
 
     # start model training
-    logit = LogisticRegression(random_state=RANDOM_SEED, solver="lbfgs").fit(
+    logit = LogisticRegression(random_state=RANDOM_SEED, solver="liblinear").fit(
         X_train, y_train
     )
     logit.score(X_test, y_test)
