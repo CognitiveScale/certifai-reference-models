@@ -2,7 +2,7 @@
 Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
 Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
 """
-from cortex import Cortex, Message
+
 import json
 import sys
 import random
@@ -22,8 +22,8 @@ def train(msg):
     random.seed(RANDOM_SEED)
     np.random.seed(RANDOM_SEED)
 
-    training_data_uri = msg.payload.get("$ref", "./data/diabetes.csv")
-    save_model_as = msg.payload.get("model_name")
+    training_data_uri = msg.get('payload', {}).get("$ref", "./data/diabetes.csv")
+    save_model_as = msg.get('payload', {}).get("model_name")
 
     data = prep_diabetes_dataset(pd.read_csv(training_data_uri))
     train_dataset = training_data_uri.replace(".csv", "-train.csv")
@@ -71,4 +71,4 @@ def train(msg):
 
 
 if __name__ == "__main__":
-    print(train(Message(json.loads(sys.argv[1]))))
+    print(train(json.loads(sys.argv[1])))
