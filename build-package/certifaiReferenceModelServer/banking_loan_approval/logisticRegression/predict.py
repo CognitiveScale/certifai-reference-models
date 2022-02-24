@@ -16,7 +16,7 @@ model_ctx = {}
 
 # entrypoint for predict daemon
 def predict_german_credit_logit(msg):
-    instances = msg.payload.get("instances", [])
+    instances = msg.get('payload', {}).get("instances", [])
     if not model_name in model_ctx:
         model_ctx[model_name] = init_model(model_name)
     return predict(model_ctx, instances)
