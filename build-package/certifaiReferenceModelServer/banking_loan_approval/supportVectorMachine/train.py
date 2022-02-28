@@ -46,15 +46,15 @@ def train(msg):
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    y_train = y_train_df.values
 
     X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    y_test = y_test_df.values
 
     # start model training
     SVM = svm.SVC(gamma="scale", random_state=RANDOM_SEED, probability=True)
-    SVM.fit(X_train.values, y_train.values)
-    svm_acc = SVM.score(X_test.values, y_test.values)
+    SVM.fit(X_train, y_train)
+    svm_acc = SVM.score(X_test, y_test)
     model_binary = f"models/{save_model_as}.pkl"
     pickle_model(SVM, scaler, "SVM", svm_acc, "Basic SVM model", model_binary)
     print(svm_acc)

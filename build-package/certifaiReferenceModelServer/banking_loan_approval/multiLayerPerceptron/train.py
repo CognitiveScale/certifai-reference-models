@@ -46,17 +46,17 @@ def train(msg):
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    y_train = y_train_df.values
 
     X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    y_test = y_test_df.values
 
     # start model training
     mlp = MLPClassifier(
         hidden_layer_sizes=(20, 20), max_iter=2000, random_state=RANDOM_SEED
     )
-    mlp.fit(X_train.values, y_train.values)
-    mlp_acc = mlp.score(X_test.values, y_test.values)
+    mlp.fit(X_train, y_train)
+    mlp_acc = mlp.score(X_test, y_test)
     model_binary = f"models/{save_model_as}.pkl"
     pickle_model(mlp, scaler, "MLP", mlp_acc, "Basic MLP model", model_binary)
     print(mlp_acc)

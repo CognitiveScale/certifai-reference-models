@@ -17,5 +17,8 @@ test-endpoint:
 train-local: setup_local_space
 	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/train.py '{"payload": $(shell sed -e 's/^"//' -e 's/"$$//' <<< ${PAYLOAD})}'
 
+predict-local:
+	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/predict.py
+
 setup_local_space:
 	@mkdir -p ../models

@@ -43,15 +43,15 @@ def train(msg):
 
     # create encoder on entire dataset
     scaler = WrappedStandardScaler(copy=True, with_mean=True, with_std=True)
-    scaler.fit(X)
+    scaler.fit(X.values)
 
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
-    X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    X_train = scaler.transform(X_train_df.values)
+    y_train = y_train_df.values
 
-    X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    X_test = scaler.transform(X_test_df.values)
+    y_test = y_test_df.values
 
     # start model training
     logit = LogisticRegression(random_state=RANDOM_SEED, solver="liblinear").fit(

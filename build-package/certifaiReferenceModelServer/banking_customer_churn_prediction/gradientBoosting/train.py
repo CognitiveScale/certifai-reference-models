@@ -9,7 +9,7 @@ import random
 from sklearn.ensemble import GradientBoostingClassifier
 import pandas as pd
 import numpy as np
-from certifaiReferenceModelServer.banking_customer_churn_prediction.common_utils.train_utils import Encoder
+from certifaiReferenceModelServer.utils.train_utils import Encoder
 from certifaiReferenceModelServer.utils.encode_decode import pickle_model
 
 RANDOM_SEED = 0
@@ -46,10 +46,10 @@ def train(msg):
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    y_train = y_train_df.values
 
     X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    y_test = y_test_df.values
 
     # start model training
     gbMod = GradientBoostingClassifier(

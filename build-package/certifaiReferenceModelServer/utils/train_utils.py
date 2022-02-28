@@ -5,8 +5,6 @@ Licensed under CognitiveScale Example Code License https://github.com/CognitiveS
 from sklearn import preprocessing
 import pandas as pd
 import numpy as np
-import pickle
-import time
 
 class Encoder:
     def __init__(self, df):
@@ -93,5 +91,5 @@ class Encoder:
         # retain original ordering of input data encoding
         trans_df = pd.DataFrame(trans_df, columns=feature_names)
         a = list(trans_df.columns)
-        return trans_df.reindex(columns=all_column_names)
+        return trans_df.reindex(columns=all_column_names).values
 

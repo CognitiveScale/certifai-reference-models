@@ -127,4 +127,5 @@ def start_flask_native(addr):
 
 
 if __name__ == '__main__':
+
     app = assemble_server(sys.argv[1])

@@ -11,7 +11,7 @@ import pandas as pd
 import numpy as np
 import sys
 from certifaiReferenceModelServer.utils.encode_decode import pickle_model
-from certifaiReferenceModelServer.bank_marketing.common_utils.train_utils import Encoder
+from certifaiReferenceModelServer.utils.train_utils import Encoder
 
 RANDOM_SEED = 0
 
@@ -47,10 +47,10 @@ def train(msg):
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    y_train = y_train_df.values
 
     X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    y_test = y_test_df.values
 
     # start model training
     mlp = MLPClassifier(random_state=RANDOM_SEED)

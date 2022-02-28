@@ -18,7 +18,7 @@ mv dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}.zip dist/corte
 pip install dist/cortex-certifai-reference-model-server-${CFI_PKG_VERSION}-${CFI_VERSION_BUILD_NUM}.zip
 
 # run train with installed package
-cd certifaiReferenceModelServer/all && make train-projects-all-local
+cd certifaiReferenceModelServer/all && make train-projects-all-local || exit 1
 
 # mv models from projects and build-again
 

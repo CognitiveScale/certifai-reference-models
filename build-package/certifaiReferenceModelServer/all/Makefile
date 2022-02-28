@@ -32,7 +32,7 @@ test-all-endpoints:
 train-projects-all-local:
 	@for dir in $(MODEL_DIRS) ; do \
 		echo "Building "$$dir ; \
-		cd ${PROJECT_ROOT_DIR}$$dir/all && make train-all-local ; \
+		cd ${PROJECT_ROOT_DIR}$$dir/all && make train-all-local || exit 1 ; \
 	done
 
 help-local:

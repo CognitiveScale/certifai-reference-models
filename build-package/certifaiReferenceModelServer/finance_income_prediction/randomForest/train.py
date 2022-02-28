@@ -47,10 +47,10 @@ def train(msg):
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    y_train = y_train_df.values
 
     X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    y_test = y_test_df.values
 
     # start model training
     rf = RandomForestClassifier(random_state=RANDOM_SEED)

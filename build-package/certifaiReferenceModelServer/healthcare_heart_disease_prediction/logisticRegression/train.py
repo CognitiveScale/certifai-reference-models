@@ -43,15 +43,15 @@ def train(msg):
     # apply encoding to train and test data features
     # applied on test data to calculate accuracy metric
     X_train = scaler.transform(X_train_df)
-    y_train = y_train_df
+    y_train = y_train_df.values
 
     X_test = scaler.transform(X_test_df)
-    y_test = y_test_df
+    y_test = y_test_df.values
 
     # start model training
     logit = LogisticRegression(random_state=RANDOM_SEED, solver='liblinear')
-    logit.fit(X_train.values, y_train.values)
-    logit_acc = logit.score(X_test.values, y_test.values)
+    logit.fit(X_train, y_train)
+    logit_acc = logit.score(X_test, y_test)
     model_binary = f"models/{save_model_as}.pkl"
     pickle_model(logit, scaler, 'LR', logit_acc, 'Logistic Regression Classifier', model_binary)
     print(logit_acc)

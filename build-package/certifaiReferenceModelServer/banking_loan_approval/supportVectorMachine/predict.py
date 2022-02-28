@@ -4,9 +4,8 @@ Licensed under CognitiveScale Example Code License https://github.com/CognitiveS
 """
 import numpy as np
 import os
-import sys
 from certifaiReferenceModelServer.utils.encode_decode import init_model
-from certifaiReferenceModelServer.utils.local_server import assemble_server
+
 model_name = os.getenv("MODElNAME", "german_credit_svm")
 
 model_ctx = {}
@@ -38,5 +37,7 @@ def predict(model_ctx, instances):
         "labels": labels.tolist()
     }
 
+
 if __name__ == '__main__':
-    assemble_server(sys.argv[1])
+    from certifaiReferenceModelServer.utils.local_server import start_flask_native
+    start_flask_native('0.0.0.0:5111')
