@@ -1,3 +1,0 @@
-ROUTES=auto_insurance_rf/predict:insurance_auto_insurance_claims.randomForest.predict:predict_auto_insurance_rf
-TRAIN_MODULE=insurance_auto_insurance_claims.train
-TRAIN_FUNCTION=train

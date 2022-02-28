@@ -1,3 +1,0 @@
-ROUTES=diabetes_mlp/predict:healthcare_disease_prediction.multiLayerPerceptron.predict:predict_diabetes_mlp
-TRAIN_MODULE=healthcare_disease_prediction.multiLayerPerceptron.train
-TRAIN_FUNCTION=train

@@ -1,3 +1,0 @@
-ROUTES=customer_churn_svm/predict:banking_customer_churn_prediction.supportVectorMachine.predict:predict_customer_churn_svm
-TRAIN_MODULE=banking_customer_churn_prediction.supportVectorMachine.train
-TRAIN_FUNCTION=train

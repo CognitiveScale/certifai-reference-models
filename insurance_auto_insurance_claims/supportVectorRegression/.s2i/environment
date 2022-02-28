@@ -1,3 +1,0 @@
-ROUTES=auto_insurance_svr/predict:insurance_auto_insurance_claims.supportVectorRegression.predict:predict_auto_insurance_svr
-TRAIN_MODULE=insurance_auto_insurance_claims.supportVectorRegression.train
-TRAIN_FUNCTION=train

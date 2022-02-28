@@ -1,3 +1,0 @@
-ROUTES=german_credit_svm/predict:banking_loan_approval.supportVectorMachine.predict:predict_german_credit_svm
-TRAIN_MODULE=banking_loan_approval.supportVectorMachine.train
-TRAIN_FUNCTION=train

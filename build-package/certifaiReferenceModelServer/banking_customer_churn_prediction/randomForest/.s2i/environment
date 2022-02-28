@@ -1,3 +1,0 @@
-ROUTES=customer_churn_rf/predict:banking_customer_churn_prediction.randomForest.predict:predict_customer_churn_rf
-TRAIN_MODULE=banking_customer_churn_prediction.randomForest.train
-TRAIN_FUNCTION=train

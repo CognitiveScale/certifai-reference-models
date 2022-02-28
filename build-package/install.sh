@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eux
 
 CFI_CURRENT_VERSION_LONG=$(git describe --long --always --match='v*.*' | sed 's/v//')
 CFI_CURRENT_VERSION=$(echo ${CFI_CURRENT_VERSION_LONG} | cut -d '-' -f 1)

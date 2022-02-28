@@ -1,3 +1,0 @@
-ROUTES=bank_marketing_svm/predict:bank_marketing.supportVectorMachine.predict:predict_bank_marketing_svm
-TRAIN_MODULE=bank_marketing.supportVectorMachine.train
-TRAIN_FUNCTION=train

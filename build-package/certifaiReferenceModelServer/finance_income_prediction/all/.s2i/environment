@@ -1,1 +1,0 @@
-ROUTES=adult_income_lr/predict:finance_income_prediction.logisticRegression.predict:predict_adult_income_lr,adult_income_rf/predict:finance_income_prediction.randomForest.predict:predict_adult_income_rf

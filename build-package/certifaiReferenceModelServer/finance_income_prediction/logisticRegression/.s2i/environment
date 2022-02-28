@@ -1,3 +1,0 @@
-ROUTES=adult_income_lr/predict:finance_income_prediction.logisticRegression.predict:predict_adult_income_lr
-TRAIN_MODULE=finance_income_prediction.logisticRegression.train
-TRAIN_FUNCTION=train
