@@ -3,11 +3,8 @@ Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
 Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
 """
 import os
-import sys
-import pickle
 import numpy as np
 from certifaiReferenceModelServer.utils.encode_decode import init_model
-from certifaiReferenceModelServer.utils.local_server import assemble_server
 
 model_name = os.getenv("MODElNAME", "heart_disease_lr")
 
@@ -16,7 +13,7 @@ model_ctx = {}
 
 # entrypoint for predict daemon
 def predict_heart_disease_lr(msg):
-    instances = msg.payload.get("instances", [])
+    instances = msg.get('payload', {}).get("instances", [])
     if not model_name in model_ctx:
         model_ctx[model_name] = init_model(model_name)
     return predict(model_ctx, instances)
@@ -41,4 +38,7 @@ def predict(model_ctx, instances):
     }
 
 if __name__ == '__main__':
-    assemble_server(sys.argv[1])
+
+    from certifaiReferenceModelServer.utils.local_server import start_flask_native
+    start_flask_native('0.0.0.0:5111')
+

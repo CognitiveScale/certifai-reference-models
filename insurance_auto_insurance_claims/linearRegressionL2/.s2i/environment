@@ -1,3 +1,0 @@
-ROUTES=auto_insurance_linl2/predict:insurance_auto_insurance_claims.linearRegressionL2.predict:predict_auto_insurance_linl2
-TRAIN_MODULE=insurance_auto_insurance_claims.linearRegressionL2.train
-TRAIN_FUNCTION=train

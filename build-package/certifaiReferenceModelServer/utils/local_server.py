@@ -1,4 +1,4 @@
-""" 
+"""
 Copyright (c) 2020. Cognitive Scale Inc. All rights reserved.
 Licensed under CognitiveScale Example Code License https://github.com/CognitiveScale/certifai-reference-models/blob/450bbe33bcf2f9ffb7402a561227963be44cc645/LICENSE.md
 """
@@ -10,7 +10,6 @@ from inspect import getmembers, isfunction
 from typing import NamedTuple, Dict, List
 
 from flask import Flask, Response, request
-from cortex import Message
 import json
 from werkzeug.exceptions import BadRequest
 
@@ -33,17 +32,18 @@ def is_empty(a):
 
 def _validate_message(msg):
     try:
-        if msg.payload is None:
+        payload = msg.get('payload')
+        if payload is None:
             return BadRequest(f'Missing `payload`. Expected format {json.dumps(EmptyRequest().request)}')
-        elif not isinstance(msg.payload, Dict):
+        elif not isinstance(payload, Dict):
             return BadRequest(
                 f'`payload` must be of type dict. Expected format {json.dumps(EmptyRequest().request)}')
-        elif 'instances' not in msg.payload.keys():
+        elif 'instances' not in payload.keys():
             return BadRequest(f'Missing `instances`. Expected format {json.dumps(EmptyRequest().request)}')
-        elif not isinstance(msg.payload.get('instances'), List):
+        elif not isinstance(payload.get('instances'), List):
             return BadRequest(
                 "`instances` must be either be an array of instances or a single instance, containing an array of feature values")
-        elif is_empty(msg.payload.get('instances')):
+        elif is_empty(payload.get('instances')):
             return EmptyResponse()
         else:
             return None
@@ -54,19 +54,16 @@ def _validate_message(msg):
 def invoke_fn(f):
     def invoke():
         try:
-            req_msg = Message(request.json)
-            er = _validate_message(req_msg)
+            er = _validate_message(request.json)
             if isinstance(er, EmptyResponse):
                 result = er.response
             elif er:
                 error = {"success": False, "error": er.description}
-                return Response(response=json.dumps(Message({"payload": error}).to_params()), status=er.code,
+                return Response(response=json.dumps({"payload": error}), status=er.code,
                                 mimetype="application/json")
             else:
-                result = f(req_msg)
-            if isinstance(result, Message):
-                return Response(response=json.dumps(result.to_params()), status=200, mimetype="application/json")
-            return Response(response=json.dumps(Message({"payload": result}).to_params()), status=200,
+                result = f(request.json)
+            return Response(response=json.dumps({"payload": result}), status=200,
                             mimetype="application/json")
         except Exception as e:
             error_code = e.code if hasattr(e, 'code') else 500
@@ -74,7 +71,7 @@ def invoke_fn(f):
             error = {"success": False, "error": description}
             app.logger.error(str(e))
             traceback.print_exc()
-            return Response(response=json.dumps(Message({"payload": error}).to_params()), status=error_code,
+            return Response(response=json.dumps({"payload": error}), status=error_code,
                             mimetype="application/json")
 
     return invoke
@@ -130,4 +127,5 @@ def start_flask_native(addr):
 
 
 if __name__ == '__main__':
+
     app = assemble_server(sys.argv[1])

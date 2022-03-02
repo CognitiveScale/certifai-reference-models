@@ -9,33 +9,15 @@ CONTAINER_NAME = 'german-credit-logit'
 
 PAYLOAD = '{"$$ref": ${DATASET_NAME}, "model_name": ${MODEL_NAME} }'
 
-build-train:
-	cd ../ && sh build.sh ${CONTAINER_NAME}-train '$(CURRENT_DIR)' 'train'
-
-train:
-	cd ../ && docker run --rm  -v $(PROJECT_ROOT_DIR)/data:/opt/app-root/src/model/data -v $(PROJECT_ROOT_DIR)/models:/opt/app-root/src/model/models -e TRAIN=1 -e PAYLOAD=${PAYLOAD} -it --rm ${CONTAINER_NAME}-train
-
-build-predict:
-	cd ../ && sh build.sh ${CONTAINER_NAME}-predict '$(CURRENT_DIR)' 'predict'
-
-predict:
-	docker run --rm  -v $(PROJECT_ROOT_DIR)/models:/opt/app-root/src/action/models -e MODElNAME=${MODEL_NAME} -p 5111:5000 -it ${CONTAINER_NAME}-predict
-
 test-endpoint:
-	# endpoint from .s2i/environment ROUTES	 
-	time http -v -j POST :5111/german_credit_logit/predict < test/test_instances.json
+	curl --fail -X POST -H "Content-Type: application/json" \
+	  -d @test/test_instances.json ":5111/${MODEL_NAME}/predict"
 
 train-local: setup_local_space
 	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/train.py '{"payload": $(shell sed -e 's/^"//' -e 's/"$$//' <<< ${PAYLOAD})}'
 
 predict-local:
-	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/predict.py $(shell cat .s2i/environment | grep -o -E 'ROUTES=[^ ]+' | sed -e 's/ROUTES=//')
-
-help-local:
-	@echo "make sure all dependencies are installed locally."
-	@echo "all deps can be found at certifai-reference-models/all/requirements_local.txt"
-	@echo "to install deps from file requirements_local.txt run "
-	@echo "pip install -r requirements_local.txt"
+	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/predict.py
 
 setup_local_space:
 	@mkdir -p ../models

@@ -4,16 +4,19 @@ To create package and start server run
 
 `sh install.sh`
 
-Package is created under `build-package/dist/cortex-certifai-reference-model-server-0.5.0.zip`
+Package is created under `build-package/dist/cortex-certifai-reference-model-server-x.x.x.zip`
 
 Once installed; to start server manually type `startCertifaiModelServer` on the terminal
 
+To test, run `make test`
+
 ---
 
-This repo contains code to train reference machine learning models for Cortex Certifai and create routes to expose the corresponding predict functionality using web services.
+Individual models can be run in a prediction service for debugging using `make predict-local`
+from the model folder and `make test-endpoint`.
 
-All models are trained, exposed (as web-service), and containerized using source-to-image [s2i](https://github.com/openshift/source-to-image).
+---
 
-Instructions to build, train, and predict are included inside each project/use-case. Also, all projects can be built together using instructions provided in `all` directory.
-
-In addition, the `docs` folder includes to assist with code organization and detailed instructions for adding your own projects, models, datasets, and evaluations.
+The reference model server currently pins `scikit-learn==0.24.2` to support python 3.6. To
+update beyond this (e.g., to v1.0.2) will require python 3.7+. An explicit version should 
+still be pinned to avoid warnings when importing the pickles.

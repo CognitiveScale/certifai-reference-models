@@ -4,10 +4,7 @@ Licensed under CognitiveScale Example Code License https://github.com/CognitiveS
 """
 import numpy as np
 import os
-import pickle
-import sys
 from certifaiReferenceModelServer.utils.encode_decode import init_model
-from certifaiReferenceModelServer.utils.local_server import assemble_server
 
 model_name = os.getenv("MODElNAME", "auto_insurance_svr")
 
@@ -16,7 +13,7 @@ model_ctx = {}
 
 # entrypoint for predict daemon
 def predict_auto_insurance_svr(msg):
-    instances = msg.payload.get("instances", [])
+    instances = msg.get('payload', {}).get("instances", [])
     if not model_name in model_ctx:
         model_ctx[model_name] = init_model(model_name)
     return predict(model_ctx, instances)
@@ -36,4 +33,6 @@ def predict(model_ctx, instances):
 
 
 if __name__ == "__main__":
-    assemble_server(sys.argv[1])
+    from certifaiReferenceModelServer.utils.local_server import start_flask_native
+    start_flask_native('0.0.0.0:5111')
+

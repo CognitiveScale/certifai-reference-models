@@ -14,7 +14,7 @@ function package_build() {
     cd build-package
     virtualenv -p python3.6 reference_models
     source ./reference_models/bin/activate
-    make build_package -f makefile_build_deploy
+    make build_package
 }
 
 ## MAIN
