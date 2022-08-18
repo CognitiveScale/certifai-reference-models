@@ -23,3 +23,26 @@ pipelines:
                 - script: |
                     set -eux
                     c12e-ci
+  certifai-reference-models-ubi-rc:
+    group: certifai-rc
+    environment_variables:
+      SKIP_ECR_PUSH: "true"
+    materials:
+      certifai:
+        git: git@github.com:CognitiveScale/certifai-reference-models.git
+        branch: master
+    stages:
+      - build:
+          clean_workspace: yes
+          jobs:
+            Build:
+              elastic_profile_id: gocd-test-agent-dind
+              artifacts:
+                - build:
+                    source: Dockerfile.c12e-ci.cortex-certifai-reference-model-server.ubi8
+                - build:
+                    source: artifacts
+              tasks:
+                - script: |
+                    set -eux
+                    c12e-ci
