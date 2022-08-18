@@ -38,7 +38,7 @@ pipelines:
               tasks:
                 - fetch:
                     stage: build
-                    job: buildPush
+                    job: Build
                     source: devBranchRevision.txt
                     is_file: yes
                 - script: |
