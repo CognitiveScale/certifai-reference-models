@@ -19,6 +19,56 @@ pipelines:
                     source: Dockerfile.c12e-ci.cortex-certifai-reference-model-server.ubi8
                 - build:
                     source: artifacts
+                - build:
+                    source: devBranchRevision.txt
+              tasks:
+                - script: |
+                    set -eux
+                    git rev-parse HEAD > devBranchRevision.txt
+                    c12e-ci
+      - publish:
+          clean_workspace: true
+          approval:
+            type: manual
+          jobs:
+            Promote:
+              elastic_profile_id: gocd-test-agent-dind
+              environment_variables:
+                PROMOTE_BRANCH: "master"
+              tasks:
+                - fetch:
+                    stage: build
+                    job: buildPush
+                    source: devBranchRevision.txt
+                    is_file: yes
+                - script: |
+                    set -eux
+                    
+                    COMMIT_SHA="$(cat devBranchRevision.txt)"
+                    git fetch
+                    git checkout -b ${PROMOTE_BRANCH} origin/${PROMOTE_BRANCH}
+                    git merge ${COMMIT_SHA} \
+                    --ff-only
+                    git push origin ${PROMOTE_BRANCH}
+  certifai-reference-models-ubi-rc:
+    group: certifai-rc
+    environment_variables:
+      SKIP_ECR_PUSH: "true"
+    materials:
+      certifai:
+        git: git@github.com:CognitiveScale/certifai-reference-models.git
+        branch: master
+    stages:
+      - build:
+          clean_workspace: yes
+          jobs:
+            Build:
+              elastic_profile_id: gocd-test-agent-dind
+              artifacts:
+                - build:
+                    source: Dockerfile.c12e-ci.cortex-certifai-reference-model-server.ubi8
+                - build:
+                    source: artifacts
               tasks:
                 - script: |
                     set -eux
