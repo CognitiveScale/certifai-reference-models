@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi8/python-38
+FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
 
 LABEL release=1 \
   name="cortex-certifai-reference-models-server" \
@@ -14,14 +14,40 @@ COPY artifacts/packages/cortex-certifai-reference-model-server-*.zip \
 
 WORKDIR /app
 
-RUN pip install --upgrade pip
+USER root
 
-RUN pip install --no-cache-dir \
+RUN microdnf update -y && microdnf install wget findutils -y
+
+# Create '/conda' folder '.bashrc' for the non-root user, otherwise they cannot use conda
+RUN mkdir /conda && chown -R 1001 /conda && chmod -R u+w /conda && \
+    touch //.bashrc && chown -R 1001 //.bashrc && chmod u+w //.bashrc
+
+USER 1001
+
+# Install conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
+    /bin/bash /tmp/miniconda.sh -b -p /conda -u && \
+    rm /tmp/miniconda.sh
+ENV PATH=/conda/bin:$PATH
+
+# Create a conda env
+RUN conda create -n python38 python=3.8 -y
+
+# Activate conda (and initialize) when we start the container.
+RUN echo 'eval "$(conda shell.bash hook)"' >> ~/.bashrc && \
+    echo "conda activate python38" >> ~/.bashrc
+
+
+RUN /conda/envs/python38/bin/pip install --upgrade pip
+
+RUN /conda/envs/python38/bin/pip install --no-cache-dir \
      $(find /tmp -name cortex-certifai-reference-model-server-*.zip)
 
 USER root
-RUN mkdir -p /app && chown -R default /app
-USER default
+RUN mkdir -p /app && chown -R 1001 /app
+USER 1001
+
+ENV PATH=/conda/envs/python38/bin:$PATH
 
 EXPOSE 5111
-CMD ["startCertifaiModelServer"]
+CMD ["/conda/envs/python38/bin/startCertifaiModelServer"]
