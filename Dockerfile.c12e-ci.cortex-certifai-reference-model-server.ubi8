@@ -7,20 +7,14 @@ FROM c12e/certifai:base-build AS build
 COPY artifacts/packages/cortex-certifai-reference-model-server-*.zip \
        /tmp/
 
-RUN conda run -n certifai pip install --no-cache-dir --upgrade pip
-RUN conda run -n certifai pip install --no-cache-dir \
-     $(find /tmp -name cortex-certifai-reference-model-server-*.zip)
-
-# Use conda-pack to save the conda env in a standalone environment (/venv).
-# NOTE: The environment must be in the same path in the runtime container.
-RUN conda-pack -n certifai --ignore-missing-files -o /tmp/env.tar && \
-  mkdir /venv && \
-  cd /venv && tar xf /tmp/env.tar && \
-  rm /tmp/env.tar
-
-# 'Un-pack the environment' - i.e. fix the path prefixes in the environment, so the environment is
-# equivalent to having been installed at /venv.
-RUN  /venv/bin/conda-unpack
+RUN conda run -n certifai pip install --no-cache-dir --upgrade pip && \
+    conda run -n certifai pip install --no-cache-dir \
+      $(find /tmp -name cortex-certifai-reference-model-server-*.zip) && \
+    conda-pack -n certifai --ignore-missing-files -o /tmp/env.tar && \
+    mkdir /venv && \
+    cd /venv && tar xf /tmp/env.tar && \
+    rm /tmp/env.tar && \
+    /venv/bin/conda-unpack
 
 ####################################################
 ## Runtime container
