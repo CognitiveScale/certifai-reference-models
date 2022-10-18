@@ -1,4 +1,26 @@
-FROM registry.access.redhat.com/ubi9/ubi-minimal:latest
+####################################################
+## Build container
+####################################################
+
+FROM c12e/certifai:base-build AS build
+
+COPY artifacts/packages/cortex-certifai-reference-model-server-*.zip \
+       /tmp/
+
+RUN conda run -n certifai pip install --no-cache-dir --upgrade pip && \
+    conda run -n certifai pip install --no-cache-dir \
+      $(find /tmp -name cortex-certifai-reference-model-server-*.zip) && \
+    conda-pack -n certifai --ignore-missing-files -o /tmp/env.tar && \
+    mkdir /venv && \
+    cd /venv && tar xf /tmp/env.tar && \
+    rm /tmp/env.tar && \
+    /venv/bin/conda-unpack
+
+####################################################
+## Runtime container
+####################################################
+
+FROM c12e/certifai:base-runtime AS runtime
 
 LABEL release=1 \
   name="cortex-certifai-reference-models-server" \
@@ -8,46 +30,20 @@ LABEL release=1 \
   description="Reference Model Server for Cognitive Scale's Cortex Certifai" \
   com.cognitivescale.license_terms="https://www.cognitivescale.com/legal-information/"
 
+# Copy the python environment from the build stage
+COPY --from=build /venv /venv
+
+# Activate the python env in the .bashrc and so python, pip, certifai, etc. are available when running the container
+RUN echo 'source /venv/bin/activate' >> ~/.bashrc
+SHELL ["/bin/bash", "--login", "-c"]
+
 COPY licenses /licenses
-COPY artifacts/packages/cortex-certifai-reference-model-server-*.zip \
-       /tmp/
-
-WORKDIR /app
-
-USER root
-
-RUN microdnf update -y && microdnf install wget findutils -y
-
-# Create '/conda' folder '.bashrc' for the non-root user, otherwise they cannot use conda
-RUN mkdir /conda && chown -R 1001 /conda && chmod -R u+w /conda && \
-    touch //.bashrc && chown -R 1001 //.bashrc && chmod u+w //.bashrc
-
-USER 1001
-
-# Install conda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
-    /bin/bash /tmp/miniconda.sh -b -p /conda -u && \
-    rm /tmp/miniconda.sh
-ENV PATH=/conda/bin:$PATH
-
-# Create a conda env
-RUN conda create -n python38 python=3.8 -y
-
-# Activate conda (and initialize) when we start the container.
-RUN echo 'eval "$(conda shell.bash hook)"' >> ~/.bashrc && \
-    echo "conda activate python38" >> ~/.bashrc
-
-
-RUN /conda/envs/python38/bin/pip install --upgrade pip
-
-RUN /conda/envs/python38/bin/pip install --no-cache-dir \
-     $(find /tmp -name cortex-certifai-reference-model-server-*.zip)
 
 USER root
 RUN mkdir -p /app && chown -R 1001 /app
 USER 1001
 
-ENV PATH=/conda/envs/python38/bin:$PATH
+WORKDIR /app
 
 EXPOSE 5111
-CMD ["/conda/envs/python38/bin/startCertifaiModelServer"]
+CMD ["startCertifaiModelServer"]
