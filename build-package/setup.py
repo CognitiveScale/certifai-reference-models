@@ -23,15 +23,11 @@ setup(name='cortex-certifai-reference-model-server',
       packages=find_packages(),
       include_package_data=True,
       install_requires=[
-        # NOTE(LA): bumped pandas and changed the scikit-learn version to match the range used by Certifai (common package)
         'numpy>=1.19.5, <1.23',
         'scikit-learn>=0.20.3,<1.1',
         'pandas>=0.23.4,<1.5',
         'flask>=1.1.4,<2.0',
         'markupsafe<2.1',
-
-        # NOTE(LA): Bumped gevent to a version that supports M1 mac (based on changelog: https://www.gevent.org/changelog.html#id6).
-        # Updated greenlet to match the range expected by `gevent` and bumped gunicorn to the latest (https://docs.gunicorn.org/en/stable/news.html).
         'gevent==21.12.0;platform_system!="Windows"',
         'greenlet>=1.1.0,<2.0;platform_system!="Windows"',
         'gunicorn==20.1.0;platform_system!="Windows"',
