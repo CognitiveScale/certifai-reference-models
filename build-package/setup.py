@@ -24,13 +24,13 @@ setup(name='cortex-certifai-reference-model-server',
       include_package_data=True,
       install_requires=[
         'numpy>=1.19.5, <1.23',
-        'scikit-learn==0.24.2',
-        'pandas>=0.25.3,<1.2',
+        'scikit-learn>=0.20.3,<1.1',
+        'pandas>=0.23.4,<1.5',
         'flask>=1.1.4,<2.0',
         'markupsafe<2.1',
-        'gevent==20.6.2;platform_system!="Windows"',
-        'gunicorn==20.0.4;platform_system!="Windows"',
-        'greenlet==0.4.16;platform_system!="Windows"'
+        'gevent==21.12.0;platform_system!="Windows"',
+        'greenlet>=1.1.0,<2.0;platform_system!="Windows"',
+        'gunicorn==20.1.0;platform_system!="Windows"',
       ],
 
 

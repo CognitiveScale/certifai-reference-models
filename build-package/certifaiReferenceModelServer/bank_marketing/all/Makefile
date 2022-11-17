@@ -13,6 +13,7 @@ test-all:
 	@for dir in $(MODEL_DIRS) ; do \
 		echo "testing ${CONTAINER_NAME} -"$$dir ; \
 		cd ${PROJECT_ROOT_DIR}$$dir && make test-endpoint || exit 1; \
+		echo " "; \
 	done
 
 train-all-local:

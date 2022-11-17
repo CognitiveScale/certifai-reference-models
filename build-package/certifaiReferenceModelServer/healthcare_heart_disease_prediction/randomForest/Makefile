@@ -13,7 +13,7 @@ PAYLOAD = '{"$$ref": ${DATASET_NAME}, "model_name": ${MODEL_NAME} }'
 
 test-endpoint:
 	curl --fail -X POST -H "Content-Type: application/json" \
-	  -d @test/test_instances.json ":5111/${MODEL_NAME}/predict"
+	  -d @test/test_instances.json "0.0.0.0:5111/${MODEL_NAME}/predict"
 
 train-local: setup_local_space
 	cd ../ && PYTHONPATH=.. python $(shell pwd | awk -F / '{print $$NF}')/train.py '{"payload": $(shell sed -e 's/^"//' -e 's/"$$//' <<< ${PAYLOAD})}'
