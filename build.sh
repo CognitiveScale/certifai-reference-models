@@ -11,6 +11,7 @@ function local_docker() {
 
 # This runs inside a linux docker container
 function package_build() {
+    git config --global --add safe.directory /work
     cd build-package
     virtualenv -p python3.8 reference_models
     source ./reference_models/bin/activate
