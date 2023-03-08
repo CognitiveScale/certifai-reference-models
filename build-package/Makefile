@@ -7,7 +7,7 @@ clean_build_space:
 
 build_package: clean_build_space
 	echo "building certifai reference model server python package .."
-	sh install.sh
+	./install.sh
 
 test:
 	cd certifaiReferenceModelServer/all && make test-all-endpoints
