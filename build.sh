@@ -12,7 +12,7 @@ function local_docker() {
 # This runs inside a linux docker container
 function package_build() {
     cd build-package
-    virtualenv -p python3.6 reference_models
+    virtualenv -p python3.8 reference_models
     source ./reference_models/bin/activate
     make build_package
 }
