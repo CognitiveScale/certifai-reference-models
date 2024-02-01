@@ -1,5 +1,5 @@
 numpy>=1.19.5,<1.23
-scikit-learn==0.24.2
+scikit-learn==1.0.1
 pandas>=0.25.3,<1.2
 flask>=2.2.3
 markupsafe>=2.1,<2.2
